@@ -1,0 +1,42 @@
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import Dashboard from "../../pages/Dashboard.vue";
+
+export default [
+    {
+        path: "/dashboard",
+        component: DefaultLayout,
+        children: [
+            {
+                path: "/dashboard",
+                name: "Dashboard",
+                component: () => import("../../pages/Dashboard.vue"),
+                meta: { requiresAuth: true },
+            },
+            {
+                path: "/add-employee",
+                name: "AddEmployee",
+                component: () => import("../../pages/AddEmployee.vue"),
+                meta: { requiresAuth: true },
+            },
+            {
+                path: "/list-employees",
+                name: "ListEmployees",
+                component: () => import("../../pages/ListEmployee.vue"),
+                meta: { requiresAuth: true },
+            },
+            {
+                path: "/add-company",
+                name: "AddCompany",
+                component: () => import("../../pages/AddCompany.vue"),
+                meta: { requiresAuth: true },
+            },
+            {
+                path: "/list-companies",
+                name: "ListCompanies",
+                component: () => import("../../pages/ListCompnies.vue"),
+                meta: { requiresAuth: true },
+            },
+        ],
+    },
+    // pages with no layout
+];
