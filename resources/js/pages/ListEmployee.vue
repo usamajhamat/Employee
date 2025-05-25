@@ -510,7 +510,8 @@
                                 >
                                 <p class="mt-1 text-sm text-gray-900">
                                     {{
-                                        selectedEmployee?.contact_number || "N/A"
+                                        selectedEmployee?.contact_number ||
+                                        "N/A"
                                     }}
                                 </p>
                             </div>
@@ -606,7 +607,11 @@ import {
     X,
 } from "lucide-vue-next";
 import { useRouter } from "vue-router";
-import { DELETE_EMPLOYEE, FETCH_COMPANY, FETCH_EMPLOYEES } from "@/services/store/actions.type";
+import {
+    DELETE_EMPLOYEE,
+    FETCH_COMPANY,
+    FETCH_EMPLOYEES,
+} from "@/services/store/actions.type";
 import { useStore } from "vuex";
 import { toast } from "vue3-toastify";
 
@@ -626,7 +631,6 @@ const selectedEmployee = ref(null);
 
 const employeesData = computed(() => store.getters["employee/employeeData"]);
 const companiesData = computed(() => store.getters["company/companyData"]);
-
 
 // Sample data - replace with API call
 
@@ -677,7 +681,6 @@ const paginatedEmployees = computed(() => {
 
     return employees.slice(start, end);
 });
-
 
 const startItem = computed(() => {
     return filteredEmployees?.value?.length === 0
@@ -752,10 +755,9 @@ const loadCompanies = async () => {
     }
 };
 
-
 function deleteEmployee(employeeId) {
     store
-        .dispatch("employee/" + DELETE_EMPLOYEE, {employeeId})
+        .dispatch("employee/" + DELETE_EMPLOYEE, { employeeId })
         .then(() => {
             loadEmployees(); // Refresh the list after deletion
         })
