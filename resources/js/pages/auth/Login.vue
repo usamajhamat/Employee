@@ -42,7 +42,7 @@
           <div>
             <div class="flex items-center justify-between mb-1">
               <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-              <a href="#" class="text-xs text-teal-600 hover:text-teal-800 transition-colors">Forgot password?</a>
+              <!-- <a href="#" class="text-xs text-teal-600 hover:text-teal-800 transition-colors">Forgot password?</a> -->
             </div>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -68,7 +68,7 @@
           </div>
 
           <!-- Remember Me -->
-          <div class="flex items-center">
+          <!-- <div class="flex items-center">
             <input 
               id="remember-me" 
               v-model="rememberMe" 
@@ -78,7 +78,7 @@
             <label for="remember-me" class="ml-2 block text-sm text-gray-700">
               Keep me signed in
             </label>
-          </div>
+          </div> -->
 
           <!-- Login Button -->
           <button 
