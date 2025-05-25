@@ -1,4 +1,7 @@
 export const IS_LOADING = "isLoading";
+export const NOT_IS_LOADING = "notIsLoading";
+export const SET_API_ERROR = "setApiError";
+
 export const SET_VALIDATION_ERRORS = "setValidationErrors";
 
 export const SET_TOKEN = "setToken";
@@ -30,6 +33,10 @@ export const SET_FEED_DOSE = "setFeedDose";
 
 
 export const SET_DEVICE_STATUS = "setDeviceStatus";
+
+
+export const SET_EMPLOYEE_DATA = "setEmployeeData";
+export const SET_COMPANY = "setCompany";
 
 
 

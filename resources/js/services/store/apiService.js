@@ -425,4 +425,30 @@ export default {
 
 
 
+
+
+
+
+
+    saveEmployee(params) {
+        return apiClient.post("/save-employee", params);
+    },
+
+    getEmployees(params) {
+        return apiClient.get("/get-employees", {
+            params: params,
+        });
+    },
+
+    saveCompany(params) {
+        return apiClient.post("/save-company", params);
+    },
+
+    getCompnies(params) {
+        return apiClient.get("/get-compnies", {
+            params: params,
+        });
+    },
+
+
 };

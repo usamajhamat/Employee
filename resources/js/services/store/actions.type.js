@@ -148,3 +148,15 @@ export const SAVE_TANAZA_ACCOUNT = "saveTanazaAccount";
 
 
 
+
+
+
+export const SAVE_EMPLOYEE_DATA = "saveEmployeeData";
+export const FETCH_EMPLOYEES = "fetchEmployees";
+export const FETCH_COMPANY = "fetchCompany";
+export const SAVE_COMPANY = "saveCompany";
+
+
+
+
+

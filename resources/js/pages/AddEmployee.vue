@@ -23,6 +23,24 @@
             <!-- Form -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200">
                 <form @submit.prevent="handleSubmit" class="p-6 space-y-6">
+                    <!-- Error Display -->
+                    <div
+                        v-if="error"
+                        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6"
+                    >
+                        {{ error }}
+                    </div>
+                    <div
+                        v-if="formErrors.length"
+                        class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg mb-6"
+                    >
+                        <ul class="list-disc pl-5">
+                            <li v-for="error in formErrors" :key="error">
+                                {{ error }}
+                            </li>
+                        </ul>
+                    </div>
+
                     <!-- Personal Information Section -->
                     <div class="border-b border-gray-200 pb-6">
                         <h2
@@ -35,7 +53,6 @@
                         <div
                             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
                         >
-                            <!-- Name -->
                             <div>
                                 <label
                                     for="name"
@@ -51,10 +68,10 @@
                                     required
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter full name"
+                                    @input="sanitizeInput('name')"
                                 />
                             </div>
 
-                            <!-- Candidate ID -->
                             <div>
                                 <label
                                     for="candidate_id"
@@ -70,10 +87,10 @@
                                     required
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter candidate ID"
+                                    @input="sanitizeInput('candidate_id')"
                                 />
                             </div>
 
-                            <!-- IC Number -->
                             <div>
                                 <label
                                     for="ic_number"
@@ -87,10 +104,10 @@
                                     type="text"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter IC number"
+                                    @input="sanitizeInput('ic_number')"
                                 />
                             </div>
 
-                            <!-- Date of Birth -->
                             <div>
                                 <label
                                     for="dob"
@@ -102,11 +119,11 @@
                                     id="dob"
                                     v-model="form.dob"
                                     type="date"
+                                    max="2007-05-25"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 />
                             </div>
 
-                            <!-- Gender -->
                             <div>
                                 <label
                                     for="gender"
@@ -125,7 +142,6 @@
                                 </select>
                             </div>
 
-                            <!-- Religion -->
                             <div>
                                 <label
                                     for="religion"
@@ -139,6 +155,7 @@
                                     type="text"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter religion"
+                                    @input="sanitizeInput('religion')"
                                 />
                             </div>
                         </div>
@@ -154,7 +171,6 @@
                         </h2>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Contact Number -->
                             <div>
                                 <label
                                     for="contact_number"
@@ -166,12 +182,13 @@
                                     id="contact_number"
                                     v-model="form.contact_number"
                                     type="tel"
+                                    pattern="[0-9]{10,11}"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter contact number"
+                                    @input="sanitizeInput('contact_number')"
                                 />
                             </div>
 
-                            <!-- Emergency Contact -->
                             <div>
                                 <label
                                     for="emergency_contact"
@@ -183,12 +200,13 @@
                                     id="emergency_contact"
                                     v-model="form.emergency_contact"
                                     type="tel"
+                                    pattern="[0-9]{10,11}"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter emergency contact"
+                                    @input="sanitizeInput('emergency_contact')"
                                 />
                             </div>
 
-                            <!-- State -->
                             <div>
                                 <label
                                     for="state"
@@ -227,7 +245,6 @@
                                 </select>
                             </div>
 
-                            <!-- Address -->
                             <div class="md:col-span-2">
                                 <label
                                     for="address"
@@ -241,6 +258,7 @@
                                     rows="3"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter full address"
+                                    @input="sanitizeInput('address')"
                                 ></textarea>
                             </div>
                         </div>
@@ -258,7 +276,6 @@
                         <div
                             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
                         >
-                            <!-- Company -->
                             <div>
                                 <label
                                     for="company"
@@ -267,30 +284,18 @@
                                     Company
                                 </label>
                                 <select
+                               
                                     id="company"
                                     v-model="form.company"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 >
-                                    <option value="">Select Company</option>
-                                    <option value="TechCorp Solutions">
-                                        TechCorp Solutions
-                                    </option>
-                                    <option value="Digital Innovations Ltd">
-                                        Digital Innovations Ltd
-                                    </option>
-                                    <option value="Global Systems Inc">
-                                        Global Systems Inc
-                                    </option>
-                                    <option value="Future Technologies">
-                                        Future Technologies
-                                    </option>
-                                    <option value="Smart Solutions Group">
-                                        Smart Solutions Group
-                                    </option>
+                                <option value="">Select Company</option>
+                                    <option value="" v-for="company in companiesData"
+                                :key="company.id" >{{ company.company_name }}</option>
+                                    
                                 </select>
                             </div>
 
-                            <!-- Status -->
                             <div>
                                 <label
                                     for="status"
@@ -314,7 +319,6 @@
                                 </select>
                             </div>
 
-                            <!-- Interview Date -->
                             <div>
                                 <label
                                     for="interview_date"
@@ -326,11 +330,11 @@
                                     id="interview_date"
                                     v-model="form.interview_date"
                                     type="date"
+                                    max="2025-05-25"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 />
                             </div>
 
-                            <!-- Join Company Date -->
                             <div>
                                 <label
                                     for="join_company"
@@ -342,6 +346,7 @@
                                     id="join_company"
                                     v-model="form.join_company"
                                     type="date"
+                                    max="2025-05-25"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 />
                             </div>
@@ -358,7 +363,6 @@
                         </h2>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Bank Account -->
                             <div>
                                 <label
                                     for="bank_account"
@@ -372,6 +376,7 @@
                                     type="text"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter bank account number"
+                                    @input="sanitizeInput('bank_account')"
                                 />
                             </div>
                         </div>
@@ -387,11 +392,9 @@
                         </h2>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Join Accommodation -->
-
                             <div>
                                 <label
-                                    for="join_company"
+                                    for="join_accommodation"
                                     class="block text-sm font-medium text-gray-700 mb-1"
                                 >
                                     Join Accommodation Date
@@ -400,14 +403,14 @@
                                     id="join_accommodation"
                                     v-model="form.join_accommodation"
                                     type="date"
+                                    max="2025-05-25"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 />
                             </div>
 
-                            <!-- Exit Accommodation -->
                             <div>
                                 <label
-                                    for="join_company"
+                                    for="exit_accommodation"
                                     class="block text-sm font-medium text-gray-700 mb-1"
                                 >
                                     Exit Accommodation Date
@@ -416,6 +419,7 @@
                                     id="exit_accommodation"
                                     v-model="form.exit_accommodation"
                                     type="date"
+                                    max="2025-05-25"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 />
                             </div>
@@ -478,6 +482,8 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import {
     ArrowLeft,
     Building2,
@@ -489,10 +495,20 @@ import {
     User,
     UserPlus,
 } from "lucide-vue-next";
-import { useRouter } from "vue-router";
+import { FETCH_COMPANY, SAVE_EMPLOYEE_DATA } from "@/services/store/actions.type";
+import { computed } from "vue";
+import { onMounted } from "vue";
 
 const router = useRouter();
+const store = useStore();
 const isSubmitting = ref(false);
+const error = ref(null);
+const formErrors = ref([]);
+const isLoading = ref(false);
+
+
+const companiesData = computed(() => store.getters["company/companyData"]);
+
 
 // Form data
 const form = ref({
@@ -515,62 +531,96 @@ const form = ref({
     status: "",
 });
 
-const error = ref(null);
-const isLoading = ref(false);
-const formErrors = ref([]);
+// Input sanitization
+const sanitizeInput = (field) => {
+    const value = form.value[field];
+    if (typeof value === "string") {
+        form.value[field] = value.replace(/[<>]/g, "");
+    }
+};
+
+// Form validation
+const validateForm = () => {
+    formErrors.value = [];
+
+    if (!form.value.name.trim()) {
+        formErrors.value.push("Full Name is required");
+    }
+    if (!form.value.candidate_id.trim()) {
+        formErrors.value.push("Candidate ID is required");
+    }
+    if (
+        form.value.contact_number &&
+        !/^[0-9]{10,11}$/.test(form.value.contact_number)
+    ) {
+        formErrors.value.push("Contact number must be 10-11 digits");
+    }
+    if (form.value.dob && new Date(form.value.dob) > new Date("2007-05-25")) {
+        formErrors.value.push("Employee must be at least 18 years old");
+    }
+    if (
+        form.value.join_accommodation &&
+        form.value.exit_accommodation &&
+        new Date(form.value.join_accommodation) >
+            new Date(form.value.exit_accommodation)
+    ) {
+        formErrors.value.push(
+            "Join accommodation date must be before exit date"
+        );
+    }
+
+    return formErrors.value.length === 0;
+};
 
 // Form submission
 const handleSubmit = async () => {
     isSubmitting.value = true;
+    error.value = null;
 
-    // Validate form fields
-    // if (!name.value) formErrors.value.push("Name field is required.");
-    // if (!city.value) formErrors.value.push("City field is required.");
-    // if (!address.value) formErrors.value.push("Address field is required.");
-
-    if (formErrors.value.length > 0) {
+    if (!validateForm()) {
+        isSubmitting.value = false;
         return;
     }
 
-    isLoading.value = true;
-    error.value = null;
-
     try {
-        const EmployeeData = new FormData();
-        otherInstitutionData.append("name", name.value);
-        otherInstitutionData.append("company", form.value.company);
-        otherInstitutionData.append("candidate_id", form.value.candidate_id);
-        otherInstitutionData.append(
-            "contact_number",
-            form.value.contact_number
-        );
-        otherInstitutionData.append("ic_number", form.value.ic_number);
-        otherInstitutionData.append("dob", form.value.dob);
-        otherInstitutionData.append("gender", form.value.gender);
-        otherInstitutionData.append("interview_date", form.value.interview_date);
-        otherInstitutionData.append("religion", form.value.religion);
-        otherInstitutionData.append("state", form.value.state);
-        otherInstitutionData.append("address", form.value.address);
-        otherInstitutionData.append("bank_account", form.value.bank_account);
-        otherInstitutionData.append("emergency_contact", form.value.emergency_contact);
-        otherInstitutionData.append("join_accommodation", form.value.join_accommodation);
-        otherInstitutionData.append("exit_accommodation", form.value.exit_accommodation);
-        otherInstitutionData.append("join_company", form.value.join_company);
-        otherInstitutionData.append("status", form.value.status);
+        const employeeData = {
+            company: form.value.company,
+            candidate_id: form.value.candidate_id,
+            contact_number: form.value.contact_number,
+            name: form.value.name,
+            ic_number: form.value.ic_number,
+            dob: form.value.dob,
+            gender: form.value.gender,
+            interview_date: form.value.interview_date,
+            religion: form.value.religion,
+            state: form.value.state,
+            address: form.value.address,
+            bank_account: form.value.bank_account,
+            emergency_contact: form.value.emergency_contact,
+            join_accommodation: form.value.join_accommodation,
+            exit_accommodation: form.value.exit_accommodation,
+            join_company: form.value.join_company,
+            status: form.value.status,
+        };
 
-        store
-            .dispatch(
-                `otherInstitution/${SAVE_OTHER_INSTITUTION}`,
-                otherInstitutionData
-            )
-            .then(() => {
-                router.push({ name: "ListEmployees" });
-            });
-    } catch (error) {
-        console.error("Error adding employee:", error);
-        alert("Error adding employee. Please try again.");
+        await store.dispatch(`employee/${SAVE_EMPLOYEE_DATA}`, employeeData);
+        router.push({ name: "ListEmployees" });
+    } catch (err) {
+        error.value = err.message || "Error adding employee. Please try again.";
     } finally {
         isSubmitting.value = false;
+    }
+};
+
+const loadCompanies = async () => {
+    isLoading.value = true;
+    try {
+        // Simulate API call
+        store.dispatch("company/" + FETCH_COMPANY);
+    } catch (error) {
+        console.error("Error loading companies:", error);
+    } finally {
+        isLoading.value = false;
     }
 };
 
@@ -590,10 +640,16 @@ const resetForm = () => {
         address: "",
         bank_account: "",
         emergency_contact: "",
-        join_accommodation: false,
-        exit_accommodation: false,
+        join_accommodation: "",
+        exit_accommodation: "",
         join_company: "",
         status: "",
     };
+    formErrors.value = [];
+    error.value = null;
 };
+
+onMounted(() => {
+    loadCompanies();
+});
 </script>

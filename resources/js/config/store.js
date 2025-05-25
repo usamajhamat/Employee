@@ -22,6 +22,8 @@ import feed from "@/services/store/feed";
 import weight from "@/services/store/weight";
 import feedDose from "@/services/store/feedDose";
 import tanazaApi from "@/services/store/tanazaApi";
+import employee from "@/services/store/employee";
+import company from "@/services/store/company";
 
 
 export default createStore({
@@ -49,6 +51,9 @@ export default createStore({
         feed: feed,
         feedDose: feedDose,
         tanazaApi: tanazaApi,
+
+        employee: employee,
+        company: company,
     
     },
 });

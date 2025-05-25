@@ -1,4 +1,6 @@
 <?php
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\NetworkInfoController;
 use App\Http\Controllers\TanazaApiController;
 use App\Http\Controllers\TanazaController;
@@ -144,8 +146,15 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
 
 
 
+    Route::post('save-employee', [EmployeeController::class, 'store']);
+    Route::get('get-employees', [EmployeeController::class, 'show']);
 
-    // Route::get('/tanaza/status', [TanazaController::class, 'getDeviceStatus']);
+    Route::post('save-company', [CompanyController::class, 'store']);
+        Route::get('get-compnies', [CompanyController::class, 'show']);
+
+
+
+
 
 
 });
