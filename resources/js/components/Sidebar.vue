@@ -111,6 +111,7 @@
                                             ]"
                                         >
                                             Employees
+                                           
                                         </span>
                                     </div>
                                 </AccordionTrigger>
@@ -249,10 +250,10 @@
             </div>
             <div class="ml-3">
                 <p class="text-sm font-medium text-white capitalize">
-                    {{ user?.name || 'HR Manager' }}
+                    {{ user?.name || 'Admin' }}
                 </p>
                 <p class="text-xs text-teal-300">
-                    {{ user?.email || 'hr@employeehub.com' }}
+                    {{ user?.email || 'admin@gmail.com' }}
                 </p>
             </div>
             <button

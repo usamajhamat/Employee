@@ -1,12 +1,11 @@
 import { toast } from "vue3-toastify";
-import { FETCH_COMPANY, FETCH_EMPLOYEES, SAVE_COMPANY, SAVE_EMPLOYEE_DATA } from "./actions.type";
+import {  DELETE_COMPANY, FETCH_COMPANY,  SAVE_COMPANY } from "./actions.type";
 import apiService from "./apiService";
 import {
     IS_LOADING,
     NOT_IS_LOADING,
     SET_API_ERROR,
     SET_COMPANY,
-    SET_EMPLOYEE_DATA,
 } from "./mutations.type";
 
 const state = {
@@ -52,6 +51,22 @@ const actions = {
             context.commit(IS_LOADING);
             try {
                 const response = await apiService.getCompnies(params);
+                console.log(JSON.stringify(response.data));
+                context.commit(SET_COMPANY, response.data);
+            } catch (error) {
+                console.log(error);
+                toast(error, {
+                    theme: "dark",
+                    type: "error",
+                    dangerouslyHTMLString: true,
+                });
+            }
+        },
+
+        async [DELETE_COMPANY](context, params) {
+            context.commit(IS_LOADING);
+            try {
+                const response = await apiService.deleteCompany(params);
                 console.log(JSON.stringify(response.data));
                 context.commit(SET_COMPANY, response.data);
             } catch (error) {

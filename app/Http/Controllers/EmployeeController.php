@@ -44,4 +44,17 @@ class EmployeeController extends Controller
         Log::info('Retrieved employees: ', $employees->toArray());
         return response()->json($employees);
     }
+
+
+    public function destroy(Request $request)
+    {
+        Log::info($request);
+        $employee = Candidate::find($request->input('employeeId'));
+        if ($employee) {
+            $employee->delete();
+            return response()->json(['message' => 'Employee deleted successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Employee not found'], 404);
+        }
+    }
 }

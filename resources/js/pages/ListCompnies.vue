@@ -153,7 +153,7 @@
                 >
                     <div class="flex items-center justify-between">
                         <h3 class="text-lg font-medium text-gray-900">
-                            Companies ({{ filteredCompanies?.length }})
+                            Companies ({{ filteredCompanies?.length || 0 }})
                         </h3>
                         <div class="text-sm text-gray-500">
                             Showing {{ startItem }} to {{ endItem }} of
@@ -234,7 +234,7 @@
                                                 Edit Company
                                             </button>
                                             <button
-                                                @click="deleteCompany(company)"
+                                                @click="deleteCompany(company.id)"
                                                 class="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
                                             >
                                                 <Trash2 class="h-4 w-4 mr-2" />
@@ -501,7 +501,7 @@ import {
     X,
 } from "lucide-vue-next";
 import { useRouter } from "vue-router";
-import { FETCH_COMPANY } from "@/services/store/actions.type";
+import { DELETE_COMPANY, FETCH_COMPANY } from "@/services/store/actions.type";
 import { useStore } from "vuex";
 
 const router = useRouter();
@@ -541,8 +541,14 @@ const totalPages = computed(() =>
 const paginatedCompanies = computed(() => {
     const start = (currentPage.value - 1) * itemsPerPage.value;
     const end = start + itemsPerPage.value;
-    return filteredCompanies?.value?.slice(start, end);
+
+    const companies = Array.isArray(filteredCompanies.value)
+        ? filteredCompanies.value
+        : [];
+
+    return companies.slice(start, end);
 });
+
 
 const startItem = computed(() => {
     return filteredCompanies?.value?.length === 0
@@ -606,6 +612,21 @@ const loadCompanies = async () => {
     }
 };
 
+function deleteCompany(companyId) {
+    store
+        .dispatch("company/" + DELETE_COMPANY, {companyId})
+        .then(() => {
+            loadCompanies(); // Refresh the list after deletion
+        })
+        .catch((error) => {
+            console.error("Error deleting Company:", error);
+            toast("Failed to delete Company. Please try again.", {
+                type: "error",
+            });
+        });
+}
+
+
 const clearSearch = () => {
     searchQuery.value = "";
     currentPage.value = 1;
@@ -662,15 +683,15 @@ const editCompany = (company) => {
     activeDropdown.value = null;
 };
 
-const deleteCompany = (company) => {
-    if (confirm(`Are you sure you want to delete ${company.company_name}?`)) {
-        companiesData.value = companiesData.value.filter(
-            (comp) => comp.id !== company.id
-        );
-        console.log("Deleting company:", company.id);
-    }
-    activeDropdown.value = null;
-};
+// const deleteCompany = (company) => {
+//     if (confirm(`Are you sure you want to delete ${company.company_name}?`)) {
+//         companiesData.value = companiesData.value.filter(
+//             (comp) => comp.id !== company.id
+//         );
+//         console.log("Deleting company:", company.id);
+//     }
+//     activeDropdown.value = null;
+// };
 
 // Pagination methods
 const previousPage = () => {

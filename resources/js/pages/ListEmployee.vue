@@ -345,7 +345,7 @@
                                             <Edit class="h-4 w-4" />
                                         </button>
                                         <button
-                                            @click="deleteEmployee(employee)"
+                                            @click="deleteEmployee(employee.id)"
                                             class="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50 transition-all duration-200"
                                             title="Delete Employee"
                                         >
@@ -614,8 +614,9 @@ import {
     X,
 } from "lucide-vue-next";
 import { useRouter } from "vue-router";
-import { FETCH_EMPLOYEES } from "@/services/store/actions.type";
+import { DELETE_EMPLOYEE, FETCH_EMPLOYEES } from "@/services/store/actions.type";
 import { useStore } from "vuex";
+import { toast } from "vue3-toastify";
 
 const router = useRouter();
 const store = useStore();
@@ -675,8 +676,14 @@ const totalPages = computed(() =>
 const paginatedEmployees = computed(() => {
     const start = (currentPage.value - 1) * itemsPerPage.value;
     const end = start + itemsPerPage.value;
-    return filteredEmployees?.value?.slice(start, end);
-})
+
+    const employees = Array.isArray(filteredEmployees.value)
+        ? filteredEmployees.value
+        : [];
+
+    return employees.slice(start, end);
+});
+
 
 const startItem = computed(() => {
     return filteredEmployees?.value?.length === 0
@@ -738,6 +745,20 @@ const loadEmployees = async () => {
         isLoading.value = false;
     }
 };
+
+function deleteEmployee(employeeId) {
+    store
+        .dispatch("employee/" + DELETE_EMPLOYEE, {employeeId})
+        .then(() => {
+            loadEmployees(); // Refresh the list after deletion
+        })
+        .catch((error) => {
+            console.error("Error deleting Employee:", error);
+            toast("Failed to delete Employee. Please try again.", {
+                type: "error",
+            });
+        });
+}
 
 const clearFilters = () => {
     searchQuery.value = "";
@@ -819,15 +840,15 @@ const editEmployee = (employee) => {
     router.push({ name: "EditEmployee", params: { id: employee.id } });
 };
 
-const deleteEmployee = (employee) => {
-    if (confirm(`Are you sure you want to delete ${employee.name}?`)) {
-        employees.value = employees.value.filter(
-            (emp) => emp.id !== employee.id
-        );
-        // Here you would typically make an API call to delete the employee
-        console.log("Deleting employee:", employee.id);
-    }
-};
+// const deleteEmployee = (employee) => {
+//     if (confirm(`Are you sure you want to delete ${employee.name}?`)) {
+//         employees.value = employees.value.filter(
+//             (emp) => emp.id !== employee.id
+//         );
+//         // Here you would typically make an API call to delete the employee
+//         console.log("Deleting employee:", employee.id);
+//     }
+// };
 
 // Pagination methods
 const previousPage = () => {

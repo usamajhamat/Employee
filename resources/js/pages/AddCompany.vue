@@ -165,6 +165,7 @@ import {
   Save
 } from 'lucide-vue-next';
 import { SAVE_COMPANY } from '@/services/store/actions.type';
+import { toast } from 'vue3-toastify';
 
 const router = useRouter();
 const store = useStore();
@@ -221,6 +222,15 @@ const handleSubmit = async () => {
     };
 
     await store.dispatch("company/" + SAVE_COMPANY, companyData);
+    // toast.success('Company added successfully!', {
+    //   position: 'top-right',
+    //   autoClose: 3000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined
+    // });
     router.push({ name: 'ListCompanies' });
   } catch (err) {
     error.value = err.response?.data?.message || 'Error adding company. Please try again.';

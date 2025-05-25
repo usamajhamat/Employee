@@ -1,5 +1,5 @@
 import { toast } from "vue3-toastify";
-import { FETCH_EMPLOYEES, SAVE_EMPLOYEE_DATA } from "./actions.type";
+import { DELETE_EMPLOYEE, FETCH_EMPLOYEES, SAVE_EMPLOYEE_DATA } from "./actions.type";
 import apiService from "./apiService";
 import {
     IS_LOADING,
@@ -63,6 +63,23 @@ const actions = {
                 });
             }
         },
+
+
+          async [DELETE_EMPLOYEE](context, params) {
+                    context.commit(IS_LOADING);
+                    try {
+                        const response = await apiService.deleteEmployee(params);
+                        console.log(JSON.stringify(response.data));
+                        context.commit(SET_EMPLOYEE_DATA, response.data);
+                    } catch (error) {
+                        console.log(error);
+                        toast(error, {
+                            theme: "dark",
+                            type: "error",
+                            dangerouslyHTMLString: true,
+                        });
+                    }
+                },
 };
 
 const mutations = {

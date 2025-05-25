@@ -29,4 +29,17 @@ class CompanyController extends Controller
         Log::info('Retrieved companies: ', $companies->toArray());
         return response()->json($companies);
     }
+
+
+    public function destroy(Request $request)
+    {
+        Log::info($request);
+        $company = Company::find($request->input('companyId')); 
+        if ($company) {
+            $company->delete();
+            return response()->json(['message' => 'Company deleted successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Company not found'], 404);
+        }
+    }
 }

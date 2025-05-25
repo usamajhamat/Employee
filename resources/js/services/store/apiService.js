@@ -440,12 +440,26 @@ export default {
         });
     },
 
+    deleteEmployee(params) {
+        return apiClient.delete("/delete-employee", {
+            params: params,
+        });
+    },
+
+
+
     saveCompany(params) {
         return apiClient.post("/save-company", params);
     },
 
     getCompnies(params) {
         return apiClient.get("/get-compnies", {
+            params: params,
+        });
+    },
+
+    deleteCompany(params) {
+        return apiClient.delete("/delete-company", {
             params: params,
         });
     },
