@@ -80,20 +80,12 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                         >
                             <option value="">All Companies</option>
-                            <option value="TechCorp Solutions">
-                                TechCorp Solutions
-                            </option>
-                            <option value="Digital Innovations Ltd">
-                                Digital Innovations Ltd
-                            </option>
-                            <option value="Global Systems Inc">
-                                Global Systems Inc
-                            </option>
-                            <option value="Future Technologies">
-                                Future Technologies
-                            </option>
-                            <option value="Smart Solutions Group">
-                                Smart Solutions Group
+                            <option
+                                v-for="company in companiesData"
+                                :key="company.id"
+                                :value="company.company_name"
+                            >
+                                {{ company.company_name }}
                             </option>
                         </select>
                     </div>
@@ -614,7 +606,7 @@ import {
     X,
 } from "lucide-vue-next";
 import { useRouter } from "vue-router";
-import { DELETE_EMPLOYEE, FETCH_EMPLOYEES } from "@/services/store/actions.type";
+import { DELETE_EMPLOYEE, FETCH_COMPANY, FETCH_EMPLOYEES } from "@/services/store/actions.type";
 import { useStore } from "vuex";
 import { toast } from "vue3-toastify";
 
@@ -633,6 +625,8 @@ const showViewModal = ref(false);
 const selectedEmployee = ref(null);
 
 const employeesData = computed(() => store.getters["employee/employeeData"]);
+const companiesData = computed(() => store.getters["company/companyData"]);
+
 
 // Sample data - replace with API call
 
@@ -745,6 +739,19 @@ const loadEmployees = async () => {
         isLoading.value = false;
     }
 };
+
+const loadCompanies = async () => {
+    isLoading.value = true;
+    try {
+        // Simulate API call
+        store.dispatch("company/" + FETCH_COMPANY);
+    } catch (error) {
+        console.error("Error loading companies:", error);
+    } finally {
+        isLoading.value = false;
+    }
+};
+
 
 function deleteEmployee(employeeId) {
     store
@@ -872,5 +879,6 @@ const goToPage = (page) => {
 // Lifecycle
 onMounted(() => {
     loadEmployees();
+    loadCompanies();
 });
 </script>

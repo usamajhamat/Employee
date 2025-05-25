@@ -10,7 +10,7 @@ class EmployeeController extends Controller
 {
     public function store(Request $request)
     {
-        // Log::info($request);
+        Log::info($request);
         Candidate::create([
             'company' => $request->input('company'),
             'candidate_id' => $request->input('candidate_id'),

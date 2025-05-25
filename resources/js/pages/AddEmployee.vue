@@ -220,27 +220,12 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 >
                                     <option value="">Select State</option>
-                                    <option value="Johor">Johor</option>
-                                    <option value="Kedah">Kedah</option>
-                                    <option value="Kelantan">Kelantan</option>
-                                    <option value="Kuala Lumpur">
-                                        Kuala Lumpur
-                                    </option>
-                                    <option value="Labuan">Labuan</option>
-                                    <option value="Melaka">Melaka</option>
-                                    <option value="Negeri Sembilan">
-                                        Negeri Sembilan
-                                    </option>
-                                    <option value="Pahang">Pahang</option>
-                                    <option value="Penang">Penang</option>
-                                    <option value="Perak">Perak</option>
-                                    <option value="Perlis">Perlis</option>
-                                    <option value="Putrajaya">Putrajaya</option>
-                                    <option value="Sabah">Sabah</option>
-                                    <option value="Sarawak">Sarawak</option>
-                                    <option value="Selangor">Selangor</option>
-                                    <option value="Terengganu">
-                                        Terengganu
+                                    <option
+                                        v-for="state in stateList"
+                                        :key="state.id"
+                                        :value="state.name"
+                                    >
+                                        {{ state.name }}
                                     </option>
                                 </select>
                             </div>
@@ -284,15 +269,18 @@
                                     Company
                                 </label>
                                 <select
-                               
                                     id="company"
                                     v-model="form.company"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 >
-                                <option value="">Select Company</option>
-                                    <option value="" v-for="company in companiesData"
-                                :key="company.id" >{{ company.company_name }}</option>
-                                    
+                                    <option value="">Select Company</option>
+                                    <option
+                                        :value="company.company_name"
+                                        v-for="company in companiesData"
+                                        :key="company.id"
+                                    >
+                                        {{ company.company_name }}
+                                    </option>
                                 </select>
                             </div>
 
@@ -309,12 +297,12 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 >
                                     <option value="">Select Status</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Inactive">Inactive</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="On Leave">On Leave</option>
-                                    <option value="Terminated">
-                                        Terminated
+                                    <option
+                                        v-for="status in statusList"
+                                        :key="status.id"
+                                        :value="status.name"
+                                    >
+                                        {{ status.name }}
                                     </option>
                                 </select>
                             </div>
@@ -495,7 +483,10 @@ import {
     User,
     UserPlus,
 } from "lucide-vue-next";
-import { FETCH_COMPANY, SAVE_EMPLOYEE_DATA } from "@/services/store/actions.type";
+import {
+    FETCH_COMPANY,
+    SAVE_EMPLOYEE_DATA,
+} from "@/services/store/actions.type";
 import { computed } from "vue";
 import { onMounted } from "vue";
 
@@ -506,8 +497,32 @@ const error = ref(null);
 const formErrors = ref([]);
 const isLoading = ref(false);
 
-
 const companiesData = computed(() => store.getters["company/companyData"]);
+const statusList = [
+    { id: "active", name: "Active" },
+    { id: "inactive", name: "Inactive" },
+    { id: "pending", name: "Pending" },
+    { id: "on_leave", name: "On Leave" },
+    { id: "terminated", name: "Terminated" },
+];
+const stateList = [
+  { id: "johor", name: "Johor" },
+  { id: "kedah", name: "Kedah" },
+  { id: "kelantan", name: "Kelantan" },
+  { id: "kuala_lumpur", name: "Kuala Lumpur" },
+  { id: "labuan", name: "Labuan" },
+  { id: "melaka", name: "Melaka" },
+  { id: "negeri_sembilan", name: "Negeri Sembilan" },
+  { id: "pahang", name: "Pahang" },
+  { id: "penang", name: "Penang" },
+  { id: "perak", name: "Perak" },
+  { id: "perlis", name: "Perlis" },
+  { id: "putrajaya", name: "Putrajaya" },
+  { id: "sabah", name: "Sabah" },
+  { id: "sarawak", name: "Sarawak" },
+  { id: "selangor", name: "Selangor" },
+  { id: "terengganu", name: "Terengganu" }
+];
 
 
 // Form data
