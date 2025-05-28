@@ -153,6 +153,10 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
     Route::post('save-company', [CompanyController::class, 'store']);
     Route::get('get-compnies', [CompanyController::class, 'show']);
     Route::delete('delete-company', [CompanyController::class, 'destroy']);
+    Route::get('get-compny-details', [CompanyController::class, 'getCompanyDetails']);
+    Route::post('update-company', [CompanyController::class, 'update']);
+
+
 
 
 

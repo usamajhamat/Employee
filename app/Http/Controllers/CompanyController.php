@@ -42,4 +42,23 @@ class CompanyController extends Controller
             return response()->json(['message' => 'Company not found'], 404);
         }
     }
+
+    public function getCompanyDetails(Request $request)
+    {
+       Log::info($request);
+        $company = Company::find($request->input('companyId'));
+        // Log::info('Retrieved company details: ', $company ? $company->toArray() : []);
+        if ($company) {
+            return response()->json($company, 200);
+        } else {
+            return response()->json(['message' => 'Company not found'], 404);
+        }
+       
+    }
+
+    public function update(Request $request)
+    {
+        Log::info($request);
+        $company = Company::find($request->input('companyId'));
+    }
 }

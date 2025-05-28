@@ -162,6 +162,10 @@ export const DELETE_EMPLOYEE = "deleteEmployee";
 export const FETCH_COMPANY = "fetchCompany";
 export const SAVE_COMPANY = "saveCompany";
 export const DELETE_COMPANY = "deleteCompany";
+export const FETCH_COMPANY_DETAILS = "fetchCompanyDetails";
+export const UPDATE_COMPANY_DETAILS = "updateCompanyDetails";
+
+
 
 
 

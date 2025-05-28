@@ -452,8 +452,18 @@ export default {
         return apiClient.post("/save-company", params);
     },
 
+    updateCompany(params) {
+        return apiClient.post("/update-company", params);
+    },
+
     getCompnies(params) {
         return apiClient.get("/get-compnies", {
+            params: params,
+        });
+    },
+
+    getCompnyDetails(params) {
+        return apiClient.get("/get-compny-details", {
             params: params,
         });
     },

@@ -37,6 +37,7 @@ export const SET_DEVICE_STATUS = "setDeviceStatus";
 
 export const SET_EMPLOYEE_DATA = "setEmployeeData";
 export const SET_COMPANY = "setCompany";
+export const SET_COMPANY_DETAILS = "setCompanyDetails";
 
 
 

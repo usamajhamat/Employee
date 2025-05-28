@@ -1,11 +1,12 @@
 import { toast } from "vue3-toastify";
-import {  DELETE_COMPANY, FETCH_COMPANY,  SAVE_COMPANY } from "./actions.type";
+import {  DELETE_COMPANY, FETCH_COMPANY,  FETCH_COMPANY_DETAILS,  SAVE_COMPANY, UPDATE_COMPANY_DETAILS } from "./actions.type";
 import apiService from "./apiService";
 import {
     IS_LOADING,
     NOT_IS_LOADING,
     SET_API_ERROR,
     SET_COMPANY,
+    SET_COMPANY_DETAILS,
 } from "./mutations.type";
 
 const state = {
@@ -63,6 +64,39 @@ const actions = {
             }
         },
 
+        async [FETCH_COMPANY_DETAILS](context, params) {
+            context.commit(IS_LOADING);
+            try {
+                const response = await apiService.getCompnyDetails(params);
+                console.log(JSON.stringify(response.data));
+                context.commit(SET_COMPANY_DETAILS, response.data);
+            } catch (error) {
+                console.log(error);
+                toast(error, {
+                    theme: "dark",
+                    type: "error",
+                    dangerouslyHTMLString: true,
+                });
+            }
+        },
+
+         async [UPDATE_COMPANY_DETAILS](context, params) {
+            context.commit(IS_LOADING);
+            try {
+                const response = await apiService.getCompnies(params);
+                console.log(JSON.stringify(response.data));
+                context.commit(SET_COMPANY_DETAILS, response.data);
+            } catch (error) {
+                console.log(error);
+                toast(error, {
+                    theme: "dark",
+                    type: "error",
+                    dangerouslyHTMLString: true,
+                });
+            }
+        },
+
+
         async [DELETE_COMPANY](context, params) {
             context.commit(IS_LOADING);
             try {
@@ -96,6 +130,10 @@ const mutations = {
     },
     [SET_COMPANY](state, data) {
         state.companyData = data;
+        state.isLoading = false;
+    },
+    [SET_COMPANY_DETAILS](state, data) {
+        state.companyDetails = data;
         state.isLoading = false;
     },
 };

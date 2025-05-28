@@ -197,7 +197,9 @@
                                         >
                                             <Calendar class="h-3 w-3 mr-1" />
                                             Created:
-                                            {{ formatDate(company?.created_at) }}
+                                            {{
+                                                formatDate(company?.created_at)
+                                            }}
                                         </div>
                                     </div>
                                 </div>
@@ -220,21 +222,38 @@
                                     >
                                         <div class="py-1">
                                             <button
-                                                @click="viewCompany(company)"
+                                            @click="viewCompany(company)"
                                                 class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
                                             >
                                                 <Eye class="h-4 w-4 mr-2" />
                                                 View Details
                                             </button>
-                                            <button
-                                                @click="editCompany(company)"
-                                                class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+
+                                            <router-link
+                                                :to="{
+                                                    name: 'EditCompany',
+                                                    query: {
+                                                        companyId: company.id,
+                                                    },
+                                                }"
                                             >
-                                                <Edit class="h-4 w-4 mr-2" />
-                                                Edit Company
-                                            </button>
+                                                <button
+                                                    @click="
+                                                        editCompany(company)
+                                                    "
+                                                    class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                                                >
+                                                    <Edit
+                                                        class="h-4 w-4 mr-2"
+                                                    />
+                                                    Edit Company
+                                                </button>
+                                            </router-link>
+
                                             <button
-                                                @click="deleteCompany(company.id)"
+                                                @click="
+                                                    deleteCompany(company.id)
+                                                "
                                                 class="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
                                             >
                                                 <Trash2 class="h-4 w-4 mr-2" />
@@ -375,111 +394,108 @@
 
         <!-- View Company Modal -->
         <div
-            v-if="showViewModal"
-            class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
-            @click="closeViewModal"
+        v-if="showViewModal"
+        class="fixed inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full z-50 transition-opacity duration-300"
+        @click="closeViewModal"
+    >
+        <div
+            class="relative top-16 mx-auto p-6 border w-full max-w-lg sm:max-w-xl lg:max-w-2xl shadow-2xl rounded-xl bg-white"
+            @click.stop
         >
-            <div
-                class="relative top-20 mx-auto p-5 border w-11/12 md:w-2/3 lg:w-1/2 shadow-lg rounded-md bg-white"
-                @click.stop
-            >
-                <div class="mt-3">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-medium text-gray-900">
-                            Company Details
-                        </h3>
-                        <button
-                            @click="closeViewModal"
-                            class="text-gray-400 hover:text-gray-600"
-                        >
-                            <X class="h-6 w-6" />
-                        </button>
-                    </div>
+            <div class="relative">
+                <!-- Close Button (Top Right) -->
+                <button
+                    @click="closeViewModal"
+                    class="absolute -top-2 -right-2 p-2 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-200"
+                    aria-label="Close modal"
+                >
+                    <X class="h-5 w-5" />
+                </button>
 
-                    <div v-if="selectedCompany" class="space-y-6">
-                        <!-- Company Header -->
+                <!-- Modal Header -->
+                <div
+                    class="bg-gradient-to-r from-teal-600 to-cyan-600 p-6 rounded-t-xl text-white shadow-sm"
+                >
+                    <div class="flex items-center space-x-4">
                         <div
-                            class="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-lg p-6 border border-teal-200"
+                            class="h-12 w-12 rounded-lg bg-white bg-opacity-20 flex items-center justify-center"
                         >
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0">
-                                    <div
-                                        class="h-16 w-16 rounded-lg bg-gradient-to-r from-teal-500 to-cyan-500 flex items-center justify-center"
-                                    >
-                                        <Building2 class="h-8 w-8 text-white" />
-                                    </div>
-                                </div>
-                                <div class="ml-4 flex-1">
-                                    <h4
-                                        class="text-xl font-semibold text-gray-900"
-                                    >
-                                        {{ selectedCompany.company_name }}
-                                    </h4>
-                                    <div
-                                        class="mt-2 flex items-center text-sm text-gray-500"
-                                    >
-                                        <Calendar class="h-4 w-4 mr-1" />
-                                        Created:
-                                        {{
-                                            formatDate(
-                                                selectedCompany.created_at
-                                            )
-                                        }}
-                                    </div>
-                                </div>
-                            </div>
+                            <Building2 class="h-6 w-6 text-white" />
                         </div>
-
-                        <!-- Company Information -->
-                        <div class="space-y-4">
-                            <div>
-                                <label
-                                    class="block text-sm font-medium text-gray-700 mb-2"
-                                    >Company Name</label
-                                >
-                                <p
-                                    class="text-sm text-gray-900 bg-gray-50 rounded-lg p-3"
-                                >
-                                    {{ selectedCompany.company_name }}
-                                </p>
-                            </div>
-
-                            <div>
-                                <label
-                                    class="block text-sm font-medium text-gray-700 mb-2"
-                                    >Description</label
-                                >
-                                <div class="bg-gray-50 rounded-lg p-4">
-                                    <p
-                                        class="text-sm text-gray-900 leading-relaxed"
-                                    >
-                                        {{
-                                            selectedCompany.description ||
-                                            "No description provided"
-                                        }}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label
-                                    class="block text-sm font-medium text-gray-700 mb-2"
-                                    >Status</label
-                                >
-                                <span
-                                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
-                                >
-                                    <div
-                                        class="w-2 h-2 bg-green-400 rounded-full mr-2"
-                                    ></div>
-                                    Active
-                                </span>
+                        <div>
+                            <h3 class="text-xl font-bold tracking-tight">
+                                {{ selectedCompany?.company_name || "Company Details" }}
+                            </h3>
+                            <div class="flex items-center mt-2 text-sm text-teal-100">
+                                <Calendar class="h-4 w-4 mr-1.5" />
+                                Created: {{ formatDate(selectedCompany?.created_at) }}
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Modal Body -->
+                <div v-if="selectedCompany" class="p-6 space-y-6">
+                    <div class="grid grid-cols-1 gap-6">
+                        <!-- Company Name -->
+                        <div>
+                            <label
+                                class="block text-sm font-semibold text-gray-700 mb-2"
+                            >
+                                Company Name
+                            </label>
+                            <div
+                                class="bg-gray-50 rounded-lg px-4 py-3 text-gray-900 text-sm border border-gray-200"
+                            >
+                                {{ selectedCompany.company_name }}
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div>
+                            <label
+                                class="block text-sm font-semibold text-gray-700 mb-2"
+                            >
+                                Description
+                            </label>
+                            <div
+                                class="bg-gray-50 rounded-lg px-4 py-3 text-gray-900 text-sm border border-gray-200 leading-relaxed min-h-[100px]"
+                            >
+                                {{ selectedCompany.description || "No description provided" }}
+                            </div>
+                        </div>
+
+                        <!-- Status -->
+                        <div>
+                            <label
+                                class="block text-sm font-semibold text-gray-700 mb-2"
+                            >
+                                Status
+                            </label>
+                            <span
+                                class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                            >
+                                <div
+                                    class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"
+                                ></div>
+                                Active
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="p-6 border-t border-gray-200 flex justify-end">
+                    <button
+                        @click="closeViewModal"
+                        class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-medium rounded-lg shadow-sm hover:from-teal-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-200"
+                    >
+                        Close
+                    </button>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 </template>
 
@@ -521,6 +537,8 @@ const store = useStore();
 const companiesData = computed(() => store.getters["company/companyData"]);
 
 
+
+
 // Computed properties
 const filteredCompanies = computed(() => {
     if (!searchQuery.value) return companiesData.value;
@@ -548,7 +566,6 @@ const paginatedCompanies = computed(() => {
 
     return companies.slice(start, end);
 });
-
 
 const startItem = computed(() => {
     return filteredCompanies?.value?.length === 0
@@ -614,7 +631,7 @@ const loadCompanies = async () => {
 
 function deleteCompany(companyId) {
     store
-        .dispatch("company/" + DELETE_COMPANY, {companyId})
+        .dispatch("company/" + DELETE_COMPANY, { companyId })
         .then(() => {
             loadCompanies(); // Refresh the list after deletion
         })
@@ -625,7 +642,6 @@ function deleteCompany(companyId) {
             });
         });
 }
-
 
 const clearSearch = () => {
     searchQuery.value = "";
@@ -673,23 +689,19 @@ const viewCompany = (company) => {
     activeDropdown.value = null;
 };
 
+const editCompany = (company) => {
+    selectedCompany.value = company;
+    showViewModal.value = true;
+    activeDropdown.value = null;
+};
+
 const closeViewModal = () => {
     showViewModal.value = false;
     selectedCompany.value = null;
 };
 
-const editCompany = (company) => {
-    router.push({ name: "EditCompany", params: { id: company.id } });
-    activeDropdown.value = null;
-};
-
-// const deleteCompany = (company) => {
-//     if (confirm(`Are you sure you want to delete ${company.company_name}?`)) {
-//         companiesData.value = companiesData.value.filter(
-//             (comp) => comp.id !== company.id
-//         );
-//         console.log("Deleting company:", company.id);
-//     }
+// const editCompany = (company) => {
+//     router.push({ name: "EditCompany", params: { id: company.id } });
 //     activeDropdown.value = null;
 // };
 
