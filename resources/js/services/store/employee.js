@@ -1,11 +1,18 @@
 import { toast } from "vue3-toastify";
-import { DELETE_EMPLOYEE, FETCH_EMPLOYEES, SAVE_EMPLOYEE_DATA } from "./actions.type";
+import {
+    DELETE_EMPLOYEE,
+    FETCH_EMPLOYEE_DETAILS,
+    FETCH_EMPLOYEES,
+    SAVE_EMPLOYEE_DATA,
+    UPDATE_EMPLOYEE_DATA,
+} from "./actions.type";
 import apiService from "./apiService";
 import {
     IS_LOADING,
     NOT_IS_LOADING,
     SET_API_ERROR,
     SET_EMPLOYEE_DATA,
+    SET_EMPLOYEE_DETAILS,
 } from "./mutations.type";
 
 const state = {
@@ -47,39 +54,74 @@ const actions = {
         }
     },
 
-
     async [FETCH_EMPLOYEES](context, params) {
-            context.commit(IS_LOADING);
-            try {
-                const response = await apiService.getEmployees(params);
-                console.log(JSON.stringify(response.data));
-                context.commit(SET_EMPLOYEE_DATA, response.data);
-            } catch (error) {
-                console.log(error);
-                toast(error, {
-                    theme: "dark",
-                    type: "error",
-                    dangerouslyHTMLString: true,
-                });
-            }
-        },
+        context.commit(IS_LOADING);
+        try {
+            const response = await apiService.getEmployees(params);
+            console.log(JSON.stringify(response.data));
+            context.commit(SET_EMPLOYEE_DATA, response.data);
+        } catch (error) {
+            console.log(error);
+            toast(error, {
+                theme: "dark",
+                type: "error",
+                dangerouslyHTMLString: true,
+            });
+        }
+    },
 
+    async [DELETE_EMPLOYEE](context, params) {
+        context.commit(IS_LOADING);
+        try {
+            const response = await apiService.deleteEmployee(params);
+            console.log(JSON.stringify(response.data));
+            context.commit(SET_EMPLOYEE_DATA, response.data);
+        } catch (error) {
+            console.log(error);
+            toast(error, {
+                theme: "dark",
+                type: "error",
+                dangerouslyHTMLString: true,
+            });
+        }
+    },
+    async [UPDATE_EMPLOYEE_DATA](context, params) {
+        context.commit(IS_LOADING);
+        try {
+            const response = await apiService.updateEmployee(params);
 
-          async [DELETE_EMPLOYEE](context, params) {
-                    context.commit(IS_LOADING);
-                    try {
-                        const response = await apiService.deleteEmployee(params);
-                        console.log(JSON.stringify(response.data));
-                        context.commit(SET_EMPLOYEE_DATA, response.data);
-                    } catch (error) {
-                        console.log(error);
-                        toast(error, {
-                            theme: "dark",
-                            type: "error",
-                            dangerouslyHTMLString: true,
-                        });
-                    }
-                },
+            toast("Employee updated successfully", {
+                type: "success",
+            });
+        } catch (error) {
+            console.error("UPDATE_EMPLOYEE_DATA error:", error);
+
+            const errorMessage =
+                error.response?.data?.message || "An error occurred.";
+            toast(errorMessage, {
+                type: "error",
+            });
+
+            context.commit(SET_API_ERROR, error);
+        } finally {
+            context.commit(NOT_IS_LOADING);
+        }
+    },
+    async [FETCH_EMPLOYEE_DETAILS](context, params) {
+        context.commit(IS_LOADING);
+        try {
+            const response = await apiService.getEmployeeDetails(params);
+            console.log(JSON.stringify(response.data));
+            context.commit(SET_EMPLOYEE_DETAILS, response.data);
+        } catch (error) {
+            console.log(error);
+            toast(error, {
+                theme: "dark",
+                type: "error",
+                dangerouslyHTMLString: true,
+            });
+        }
+    }
 };
 
 const mutations = {
@@ -98,6 +140,10 @@ const mutations = {
     },
     [SET_EMPLOYEE_DATA](state, data) {
         state.employeeData = data;
+        state.isLoading = false;
+    },
+    [SET_EMPLOYEE_DETAILS](state, data) {
+        state.employeeDetails = data;
         state.isLoading = false;
     },
 };

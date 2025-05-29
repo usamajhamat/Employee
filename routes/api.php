@@ -149,6 +149,9 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
     Route::post('save-employee', [EmployeeController::class, 'store']);
     Route::get('get-employees', [EmployeeController::class, 'show']);
     Route::delete('delete-employee', [EmployeeController::class, 'destroy']);
+    Route::post('update-employee', [EmployeeController::class, 'update']);
+    Route::get('get-employee-details', [EmployeeController::class, 'getEmployeeDetails']);
+
 
     Route::post('save-company', [CompanyController::class, 'store']);
     Route::get('get-compnies', [CompanyController::class, 'show']);

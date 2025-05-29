@@ -445,6 +445,14 @@ export default {
             params: params,
         });
     },
+    updateEmployee(params) {
+        return apiClient.post("/update-employee", params);
+    },
+    getEmployeeDetails(params) {
+        return apiClient.get("/get-employee-details", {
+            params: params,
+        });
+    },
 
 
 

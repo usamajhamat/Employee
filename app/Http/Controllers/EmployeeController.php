@@ -46,6 +46,17 @@ class EmployeeController extends Controller
     }
 
 
+    public function getEmployeeDetails(Request $request)
+    {
+        Log::info($request);
+        $employee = Candidate::find($request->input('employeeId'));
+        if ($employee) {
+            return response()->json($employee);
+        } else {
+            return response()->json(['message' => 'Employee not found'], 404);
+        }
+    }
+
     public function destroy(Request $request)
     {
         Log::info($request);
@@ -53,6 +64,36 @@ class EmployeeController extends Controller
         if ($employee) {
             $employee->delete();
             return response()->json(['message' => 'Employee deleted successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Employee not found'], 404);
+        }
+    }
+
+    public function update(Request $request)
+    {
+        Log::info($request);
+        $employee = Candidate::find($request->input('employeeId'));
+        if ($employee) {
+            $employee->update([
+                'company' => $request->input('company'),
+                'candidate_id' => $request->input('candidate_id'),
+                'contact_number' => $request->input('contact_number'),
+                'name' => $request->input('name'),
+                'ic_number' => $request->input('ic_number'),
+                'dob' => $request->input('dob'),
+                'gender' => $request->input('gender'),
+                'interview_date' => $request->input('interview_date'),
+                'religion' => $request->input('religion'),
+                'state' => $request->input('state'),
+                'address' => $request->input('address'),
+                'bank_account' => $request->input('bank_account'),
+                'emergency_contact' => $request->input('emergency_contact'),
+                'join_accommodation' => $request->input('join_accommodation'),
+                'exit_accommodation' => $request->input('exit_accommodation'),
+                'join_company' => $request->input('join_company'),
+                'status' =>$request->input('status'),
+            ]);
+            return response()->json(['message' => 'Employee updated successfully'], 200);
         } else {
             return response()->json(['message' => 'Employee not found'], 404);
         }

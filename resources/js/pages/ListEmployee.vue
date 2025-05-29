@@ -329,13 +329,16 @@
                                         >
                                             <Eye class="h-4 w-4" />
                                         </button>
-                                        <button
-                                            @click="editEmployee(employee)"
+                                        <router-link 
+                                            :to="{ name: 'EditEmployee', query: { id: employee.id } }">
+                                            <button
+                                            @click="editEmployee(employee.id)"
                                             class="text-blue-600 hover:text-blue-900 p-1 rounded-full hover:bg-blue-50 transition-all duration-200"
                                             title="Edit Employee"
                                         >
                                             <Edit class="h-4 w-4" />
                                         </button>
+                                        </router-link>
                                         <button
                                             @click="deleteEmployee(employee.id)"
                                             class="text-red-600 hover:text-red-900 p-1 rounded-full hover:bg-red-50 transition-all duration-200"
@@ -846,7 +849,7 @@ const closeViewModal = () => {
 };
 
 const editEmployee = (employee) => {
-    router.push({ name: "EditEmployee", params: { id: employee.id } });
+    // router.push({ name: "EditEmployee", params: { id: employee.id } });
 };
 
 // const deleteEmployee = (employee) => {

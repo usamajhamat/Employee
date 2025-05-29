@@ -42,6 +42,12 @@ export default [
                 component: () => import("../../pages/EditCompany.vue"),
                 meta: { requiresAuth: true },
             },
+            {
+                path: "/edit-employee",
+                name: "EditEmployee",
+                component: () => import("../../pages/EditEmployee.vue"),
+                meta: { requiresAuth: true },
+            },
         ],
     },
     // pages with no layout
