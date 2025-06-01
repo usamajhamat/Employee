@@ -41,6 +41,9 @@ export const SET_EMPLOYEE_DETAILS = "setEmployeeDetails";
 export const SET_COMPANY = "setCompany";
 export const SET_COMPANY_DETAILS = "setCompanyDetails";
 
+export const SET_DASHBOARD_ANALYTICS = "setDashboardAnalytics";
+
+
 
 
 

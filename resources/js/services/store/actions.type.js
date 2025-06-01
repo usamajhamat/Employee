@@ -167,6 +167,9 @@ export const DELETE_COMPANY = "deleteCompany";
 export const FETCH_COMPANY_DETAILS = "fetchCompanyDetails";
 export const UPDATE_COMPANY_DETAILS = "updateCompanyDetails";
 
+export const FETCH_DASHBOARD_ANALYTICS = "fetchDashboardAnalytics";
+
+
 
 
 

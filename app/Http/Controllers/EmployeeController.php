@@ -29,6 +29,7 @@ class EmployeeController extends Controller
             'exit_accommodation' => $request->input('exit_accommodation'),
             'join_company' => $request->input('join_company'),
             'status' =>$request->input('status'),
+            'residance' => $request->input('residance'),
         ]);
 
         return response()->json([

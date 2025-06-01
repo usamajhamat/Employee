@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('exit_accommodation')->nullable(); 
             $table->string('join_company')->nullable(); 
             $table->string('status')->nullable();
+            $table->string('residance')->nullable();
             $table->timestamps();
         });
     }

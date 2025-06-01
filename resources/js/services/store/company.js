@@ -1,5 +1,12 @@
 import { toast } from "vue3-toastify";
-import {  DELETE_COMPANY, FETCH_COMPANY,  FETCH_COMPANY_DETAILS,  SAVE_COMPANY, UPDATE_COMPANY_DETAILS } from "./actions.type";
+import {
+    DELETE_COMPANY,
+    FETCH_COMPANY,
+    FETCH_COMPANY_DETAILS,
+    FETCH_DASHBOARD_ANALYTICS,
+    SAVE_COMPANY,
+    UPDATE_COMPANY_DETAILS,
+} from "./actions.type";
 import apiService from "./apiService";
 import {
     IS_LOADING,
@@ -7,11 +14,13 @@ import {
     SET_API_ERROR,
     SET_COMPANY,
     SET_COMPANY_DETAILS,
+    SET_DASHBOARD_ANALYTICS,
 } from "./mutations.type";
 
 const state = {
     companyData: null,
     companyDetails: null,
+    dashboardAnalyticsData: null,
     isLoading: false,
     apiErrors: [],
 };
@@ -19,6 +28,7 @@ const state = {
 const getters = {
     companyData: (state) => state.companyData,
     companyDetails: (state) => state.companyDetails,
+    dashboardAnalyticsData: (state) => state.dashboardAnalyticsData,
     isLoading: (state) => state.isLoading,
     apiErrors: (state) => state.apiErrors,
 };
@@ -47,71 +57,86 @@ const actions = {
         }
     },
 
-
     async [FETCH_COMPANY](context, params) {
-            context.commit(IS_LOADING);
-            try {
-                const response = await apiService.getCompnies(params);
-                console.log(JSON.stringify(response.data));
-                context.commit(SET_COMPANY, response.data);
-            } catch (error) {
-                console.log(error);
-                toast(error, {
-                    theme: "dark",
-                    type: "error",
-                    dangerouslyHTMLString: true,
-                });
-            }
-        },
+        context.commit(IS_LOADING);
+        try {
+            const response = await apiService.getCompnies(params);
+            console.log(JSON.stringify(response.data));
+            context.commit(SET_COMPANY, response.data);
+        } catch (error) {
+            console.log(error);
+            toast(error, {
+                theme: "dark",
+                type: "error",
+                dangerouslyHTMLString: true,
+            });
+        }
+    },
 
-        async [FETCH_COMPANY_DETAILS](context, params) {
-            context.commit(IS_LOADING);
-            try {
-                const response = await apiService.getCompnyDetails(params);
-                console.log(JSON.stringify(response.data));
-                context.commit(SET_COMPANY_DETAILS, response.data);
-            } catch (error) {
-                console.log(error);
-                toast(error, {
-                    theme: "dark",
-                    type: "error",
-                    dangerouslyHTMLString: true,
-                });
-            }
-        },
+    async [FETCH_COMPANY_DETAILS](context, params) {
+        context.commit(IS_LOADING);
+        try {
+            const response = await apiService.getCompnyDetails(params);
+            console.log(JSON.stringify(response.data));
+            context.commit(SET_COMPANY_DETAILS, response.data);
+        } catch (error) {
+            console.log(error);
+            toast(error, {
+                theme: "dark",
+                type: "error",
+                dangerouslyHTMLString: true,
+            });
+        }
+    },
 
-         async [UPDATE_COMPANY_DETAILS](context, params) {
-            context.commit(IS_LOADING);
-            try {
-                const response = await apiService.getCompnies(params);
-                console.log(JSON.stringify(response.data));
-                context.commit(SET_COMPANY_DETAILS, response.data);
-            } catch (error) {
-                console.log(error);
-                toast(error, {
-                    theme: "dark",
-                    type: "error",
-                    dangerouslyHTMLString: true,
-                });
-            }
-        },
+    async [UPDATE_COMPANY_DETAILS](context, params) {
+        context.commit(IS_LOADING);
+        try {
+            const response = await apiService.updateCompany(params);
+            console.log(JSON.stringify(response.data));
+            context.commit(SET_COMPANY_DETAILS, response.data);
+        } catch (error) {
+            console.log(error);
+            toast(error, {
+                theme: "dark",
+                type: "error",
+                dangerouslyHTMLString: true,
+            });
+        }
+    },
 
+    async [DELETE_COMPANY](context, params) {
+        context.commit(IS_LOADING);
+        try {
+            const response = await apiService.deleteCompany(params);
+            console.log(JSON.stringify(response.data));
+            context.commit(SET_COMPANY, response.data);
+        } catch (error) {
+            console.log(error);
+            toast(error, {
+                theme: "dark",
+                type: "error",
+                dangerouslyHTMLString: true,
+            });
+        }
+    },
 
-        async [DELETE_COMPANY](context, params) {
-            context.commit(IS_LOADING);
-            try {
-                const response = await apiService.deleteCompany(params);
-                console.log(JSON.stringify(response.data));
-                context.commit(SET_COMPANY, response.data);
-            } catch (error) {
-                console.log(error);
-                toast(error, {
-                    theme: "dark",
-                    type: "error",
-                    dangerouslyHTMLString: true,
-                });
-            }
-        },
+    //Dashboard Analytics
+    async [FETCH_DASHBOARD_ANALYTICS](context, params) {
+        context.commit(IS_LOADING);
+        try {
+            const response = await apiService.getDashboardAnalytics(params);
+            console.log(JSON.stringify(response.data));
+            context.commit(SET_DASHBOARD_ANALYTICS, response.data);
+        } catch (error) {
+            console.log(error);
+            toast(error, {
+                theme: "dark",
+                type: "error",
+                dangerouslyHTMLString: true,
+            });
+        }
+    },
 };
 
 const mutations = {
@@ -134,6 +159,10 @@ const mutations = {
     },
     [SET_COMPANY_DETAILS](state, data) {
         state.companyDetails = data;
+        state.isLoading = false;
+    },
+    [SET_DASHBOARD_ANALYTICS](state, data) {
+        state.dashboardAnalyticsData = data;
         state.isLoading = false;
     },
 };

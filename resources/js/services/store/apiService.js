@@ -476,6 +476,13 @@ export default {
         });
     },
 
+
+    getDashboardAnalytics(params) {
+        return apiClient.get("/get-dashboard-analytics", {
+            params: params,
+        });
+    },
+
     deleteCompany(params) {
         return apiClient.delete("/delete-company", {
             params: params,

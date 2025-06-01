@@ -25,7 +25,7 @@
 
             <!-- Form -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-                <form @submit.prevent="handleSubmit" class="p-6 space-y-6">
+                <form @submit.prevent="updateCompanyDetails" class="p-6 space-y-6">
                     <!-- Error Display -->
                     <div
                         v-if="error"
@@ -117,7 +117,7 @@
                                 class="flex items-center justify-center"
                             >
                                 <Save class="h-4 w-4 mr-2" />
-                                Add Company
+                                Update Company
                             </span>
                             <span
                                 v-else
@@ -226,6 +226,7 @@ import {
 import {
     FETCH_COMPANY_DETAILS,
     SAVE_COMPANY,
+UPDATE_COMPANY_DETAILS,
 } from "@/services/store/actions.type";
 import { toast } from "vue3-toastify";
 import { onMounted } from "vue";
@@ -273,6 +274,7 @@ function updateCompanyDetails() {
 
     try {
         const companyData = {
+            company_id: companyId,
             company_name: form.value.company_name.trim(),
             description: form.value.description.trim() || null,
         };
@@ -330,25 +332,15 @@ const handleSubmit = async () => {
 
     try {
         const companyData = {
-            company_name: form.value.company_name.trim(),
-            description: form.value.description.trim() || null,
+            company_id: companyId,
+            name: form.value.company_name,
+            description: form.value.description || null,
         };
 
-        await store.dispatch("company/" + SAVE_COMPANY, companyData);
-        // toast.success('Company added successfully!', {
-        //   position: 'top-right',
-        //   autoClose: 3000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined
-        // });
-        router.push({ name: "ListCompanies" });
+        await store.dispatch("company/" + {UPDATE_COMPANY_DETAILS}, companyData);
+        router.push({ name: "ListCompnies" });
     } catch (err) {
-        error.value =
-            err.response?.data?.message ||
-            "Error adding company. Please try again.";
+        error.value = err.response?.data?.message || "Error updating employee. Please try again.";
     } finally {
         isSubmitting.value = false;
     }

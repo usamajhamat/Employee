@@ -299,7 +299,22 @@
                             Accommodation
                         </h2>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">
+                                    State
+                                </label>
+                                <select
+                                    id="state"
+                                    v-model="form.residance"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                >
+                                    <option value="">Select Residance</option>
+                                    <option v-for="state in residanceList" :key="state.id" :value="state.name">
+                                        {{ state.name }}
+                                    </option>
+                                </select>
+                            </div>
                             <div>
                                 <label for="join_accommodation" class="block text-sm font-medium text-gray-700 mb-1">
                                     Join Accommodation Date
@@ -447,11 +462,18 @@ const companiesData = computed(() => store.getters["company/companyData"]);
 const employeeDetails = computed(() => store.getters["employee/employeeDetails"]);
 const statusList = [
     { id: "active", name: "Active" },
-    { id: "inactive", name: "Inactive" },
-    { id: "pending", name: "Pending" },
-    { id: "on_leave", name: "On Leave" },
-    { id: "terminated", name: "Terminated" },
+    { id: "absconded", name: "Absconded" },
+    { id: "resigned", name: "Resigned" },
+    { id: "rejected", name: "Rejected" },
+    { id: "kiv ", name: "KIV " },
 ];
+
+const residanceList = [
+    { id: "hostel", name: "Hostel" },
+    { id: "walk_in", name: "Walk In" },
+    
+];
+
 const stateList = [
     { id: "johor", name: "Johor" },
     { id: "kedah", name: "Kedah" },
@@ -490,6 +512,7 @@ const form = ref({
     exit_accommodation: "",
     join_company: "",
     status: "",
+    residance: "",
 });
 
 function getEmployeeDetails() {
@@ -517,6 +540,7 @@ function getEmployeeDetails() {
                 exit_accommodation: employeeDetails.value.exit_accommodation || "",
                 join_company: employeeDetails.value.join_company || "",
                 status: employeeDetails.value.status || "",
+                residance: employeeDetails.value.residance || "",
             };
         })
         .catch((err) => {
@@ -593,6 +617,7 @@ const handleSubmit = async () => {
             exit_accommodation: form.value.exit_accommodation,
             join_company: form.value.join_company,
             status: form.value.status,
+            residance: form.value.residance,
         };
 
         await store.dispatch(`employee/${UPDATE_EMPLOYEE_DATA}`, employeeData);

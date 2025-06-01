@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DashboardAnalyticsController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\NetworkInfoController;
 use App\Http\Controllers\TanazaApiController;
@@ -158,6 +159,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
     Route::delete('delete-company', [CompanyController::class, 'destroy']);
     Route::get('get-compny-details', [CompanyController::class, 'getCompanyDetails']);
     Route::post('update-company', [CompanyController::class, 'update']);
+
+    Route::get('get-dashboard-analytics', [DashboardAnalyticsController::class, 'index']);
 
 
 

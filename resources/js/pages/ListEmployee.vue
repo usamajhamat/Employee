@@ -329,15 +329,21 @@
                                         >
                                             <Eye class="h-4 w-4" />
                                         </button>
-                                        <router-link 
-                                            :to="{ name: 'EditEmployee', query: { id: employee.id } }">
-                                            <button
-                                            @click="editEmployee(employee.id)"
-                                            class="text-blue-600 hover:text-blue-900 p-1 rounded-full hover:bg-blue-50 transition-all duration-200"
-                                            title="Edit Employee"
+                                        <router-link
+                                            :to="{
+                                                name: 'EditEmployee',
+                                                query: { id: employee.id },
+                                            }"
                                         >
-                                            <Edit class="h-4 w-4" />
-                                        </button>
+                                            <button
+                                                @click="
+                                                    editEmployee(employee.id)
+                                                "
+                                                class="text-blue-600 hover:text-blue-900 p-1 rounded-full hover:bg-blue-50 transition-all duration-200"
+                                                title="Edit Employee"
+                                            >
+                                                <Edit class="h-4 w-4" />
+                                            </button>
                                         </router-link>
                                         <button
                                             @click="deleteEmployee(employee.id)"
@@ -440,52 +446,73 @@
         <!-- View Employee Modal -->
         <div
             v-if="showViewModal"
-            class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+            class="fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50 transition-opacity duration-300"
             @click="closeViewModal"
         >
             <div
-                class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white"
+                class="relative mx-auto p-6 border w-11/12 sm:w-3/4 lg:w-2/5 max-w-2xl bg-white rounded-xl shadow-2xl"
                 @click.stop
             >
-                <div class="mt-3">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-medium text-gray-900">
+                <div class="relative">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800">
                             Employee Details
                         </h3>
                         <button
                             @click="closeViewModal"
-                            class="text-gray-400 hover:text-gray-600"
+                            class="text-gray-500 hover:text-gray-700 transition-colors duration-200"
+                            aria-label="Close modal"
                         >
-                            <X class="h-6 w-6" />
+                            <svg
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
                         </button>
                     </div>
 
-                    <div v-if="selectedEmployee" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div v-if="selectedEmployee" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-600"
                                     >Name</label
                                 >
-                                <p class="mt-1 text-sm text-gray-900">
-                                    {{ selectedEmployee?.name }}
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
+                                    {{ selectedEmployee?.name || "N/A" }}
                                 </p>
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-600"
                                     >Candidate ID</label
                                 >
-                                <p class="mt-1 text-sm text-gray-900">
-                                    {{ selectedEmployee?.candidate_id }}
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
+                                    {{
+                                        selectedEmployee?.candidate_id || "N/A"
+                                    }}
                                 </p>
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-600"
                                     >Company</label
                                 >
-                                <p class="mt-1 text-sm text-gray-900">
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
                                     {{
                                         selectedEmployee?.company ||
                                         "Not Assigned"
@@ -494,11 +521,11 @@
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-600"
                                     >Status</label
                                 >
                                 <span
-                                    class="inline-flex px-2 py-1 text-xs font-semibold rounded-full"
+                                    class="inline-flex px-3 py-1 text-xs font-semibold rounded-full mt-1"
                                     :class="
                                         getStatusClass(selectedEmployee?.status)
                                     "
@@ -508,10 +535,12 @@
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-600"
                                     >Contact Number</label
                                 >
-                                <p class="mt-1 text-sm text-gray-900">
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
                                     {{
                                         selectedEmployee?.contact_number ||
                                         "N/A"
@@ -520,10 +549,12 @@
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-600"
                                     >Emergency Contact</label
                                 >
-                                <p class="mt-1 text-sm text-gray-900">
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
                                     {{
                                         selectedEmployee?.emergency_contact ||
                                         "N/A"
@@ -532,10 +563,12 @@
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-600"
                                     >Date of Birth</label
                                 >
-                                <p class="mt-1 text-sm text-gray-900">
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
                                     {{
                                         selectedEmployee?.dob
                                             ? formatDate(selectedEmployee?.dob)
@@ -545,28 +578,34 @@
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-600"
                                     >Gender</label
                                 >
-                                <p class="mt-1 text-sm text-gray-900">
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
                                     {{ selectedEmployee?.gender || "N/A" }}
                                 </p>
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-600"
                                     >State</label
                                 >
-                                <p class="mt-1 text-sm text-gray-900">
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
                                     {{ selectedEmployee?.state || "N/A" }}
                                 </p>
                             </div>
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
+                                    class="block text-sm font-medium text-gray-600"
                                     >Join Date</label
                                 >
-                                <p class="mt-1 text-sm text-gray-900">
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
                                     {{
                                         selectedEmployee?.join_company
                                             ? formatDate(
@@ -576,14 +615,72 @@
                                     }}
                                 </p>
                             </div>
+                            <div>
+                                <label
+                                    class="block text-sm font-medium text-gray-600"
+                                    >Bank Account Number</label
+                                >
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
+                                    {{
+                                        selectedEmployee?.bank_account || "N/A"
+                                    }}
+                                </p>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-sm font-medium text-gray-600"
+                                    >Residance</label
+                                >
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
+                                    {{ selectedEmployee?.residance || "N/A" }}
+                                </p>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-sm font-medium text-gray-600"
+                                    >Join Accommodation Date</label
+                                >
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
+                                    {{
+                                        selectedEmployee?.join_accommodation
+                                            ? formatDate(
+                                                  selectedEmployee?.join_accommodation
+                                              )
+                                            : "N/A"
+                                    }}
+                                </p>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-sm font-medium text-gray-600"
+                                    >Exit Accommodation Date</label
+                                >
+                                <p
+                                    class="mt-1 text-base text-gray-900 font-medium"
+                                >
+                                    {{
+                                        selectedEmployee?.exit_accommodation
+                                            ? formatDate(
+                                                  selectedEmployee?.exit_accommodation
+                                              )
+                                            : "N/A"
+                                    }}
+                                </p>
+                            </div>
                         </div>
 
                         <div v-if="selectedEmployee?.address">
                             <label
-                                class="block text-sm font-medium text-gray-700"
+                                class="block text-sm font-medium text-gray-600"
                                 >Address</label
                             >
-                            <p class="mt-1 text-sm text-gray-900">
+                            <p class="mt-1 text-base text-gray-900 font-medium">
                                 {{ selectedEmployee?.address }}
                             </p>
                         </div>

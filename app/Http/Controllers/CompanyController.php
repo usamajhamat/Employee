@@ -59,6 +59,14 @@ class CompanyController extends Controller
     public function update(Request $request)
     {
         Log::info($request);
-        $company = Company::find($request->input('companyId'));
+        $company = Company::find($request->input('company_id'));
+
+        if (!$company) {
+            return response()->json(['message' => 'Company not found'], 404);
+        }
+        $company->company_name = $request->input('company_name');
+        $company->description = $request->input('description');
+        $company->save();
+        Log::info($company);
     }
 }
