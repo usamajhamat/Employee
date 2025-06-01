@@ -36,8 +36,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
     Route::get('user/', function (Request $request) {
         return $request->user();
     });
-    Route::get('/email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\VerifyEmailController')
-    ->name('verification.verify');
+    Route::get('verify-email', App\Http\Controllers\Auth\VerifyEmailController::class);
+
 
     Route::get('uploads', [FileUploadController::class, 'index']);
     Route::post('uploads', [FileUploadController::class, 'store']);
