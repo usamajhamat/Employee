@@ -1,5 +1,5 @@
 <template>
-    <pre>{{ dashboardAnalyticsData }}</pre>
+  <!-- <pre>{{ dashboardAnalyticsData }}</pre> -->
   <div class="min-h-screen bg-gray-50 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Header -->
@@ -16,8 +16,18 @@
               </div>
             </div>
             <div class="mt-4 sm:mt-0 flex items-center space-x-2">
+              <select
+                v-model="selectedCompany"
+                class="px-4 py-2 bg-white/20 text-white font-semibold rounded-lg hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-200"
+                @change="fetchAndUpdateCharts"
+              >
+                <option value="all" class="bg-white text-gray-900">All Companies</option>
+                <option v-for="company in companiesData" :key="company.id" :value="company.company_name" class="bg-white text-gray-900">
+                  {{ company.company_name }}
+                </option>
+              </select>
               <button
-                @click="refreshData"
+                @click="fetchAndUpdateCharts"
                 :disabled="isLoading"
                 class="inline-flex items-center px-4 py-2 bg-white/20 text-white font-semibold rounded-lg hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-200"
               >
@@ -31,33 +41,6 @@
 
       <!-- Stats Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <!-- Total Employees -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center">
-            <div class="h-12 w-12 rounded-lg bg-blue-100 flex items-center justify-center">
-              <Users class="h-6 w-6 text-blue-600" />
-            </div>
-            <div class="ml-4">
-              <p class="text-sm font-medium text-gray-600">Total Employees</p>
-              <p class="text-2xl font-bold text-gray-900">{{ totalEmployees }}</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Active Employees -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div class="flex items-center">
-            <div class="h-12 w-12 rounded-lg bg-green-100 flex items-center justify-center">
-              <UserCheck class="h-6 w-6 text-green-600" />
-            </div>
-            <div class="ml-4">
-              <p class="text-sm font-medium text-gray-600">Active Employees</p>
-              <p class="text-2xl font-bold text-gray-900">{{ activeEmployees }}</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Total Companies -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div class="flex items-center">
             <div class="h-12 w-12 rounded-lg bg-purple-100 flex items-center justify-center">
@@ -69,8 +52,29 @@
             </div>
           </div>
         </div>
-
-        <!-- Walk-in Employees -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center">
+            <div class="h-12 w-12 rounded-lg bg-blue-100 flex items-center justify-center">
+              <Users class="h-6 w-6 text-blue-600" />
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-600">Total Employees</p>
+              <p class="text-2xl font-bold text-gray-900">{{ totalEmployees }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center">
+            <div class="h-12 w-12 rounded-lg bg-green-100 flex items-center justify-center">
+              <UserCheck class="h-6 w-6 text-green-600" />
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-600">Active Employees</p>
+              <p class="text-2xl font-bold text-gray-900">{{ activeEmployees }}</p>
+            </div>
+          </div>
+        </div>
+        
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div class="flex items-center">
             <div class="h-12 w-12 rounded-lg bg-orange-100 flex items-center justify-center">
@@ -85,9 +89,9 @@
       </div>
 
       <!-- Charts Section -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-        <!-- Employees by Company Chart -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-8">
+        <!-- Company Chart -->
+        <!-- <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div class="flex items-center justify-between mb-6">
             <h3 class="text-lg font-semibold text-gray-900">Employees by Company</h3>
             <Building2 class="h-5 w-5 text-gray-400" />
@@ -107,8 +111,7 @@
               <span class="font-semibold text-gray-900">{{ item.value }}</span>
             </div>
           </div>
-        </div>
-
+        </div> -->
         <!-- Employees by Type Chart -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div class="flex items-center justify-between mb-6">
@@ -131,7 +134,6 @@
             </div>
           </div>
         </div>
-
         <!-- Employees by Status Chart -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div class="flex items-center justify-between mb-6">
@@ -155,35 +157,12 @@
           </div>
         </div>
       </div>
-
-      <!-- Recent Activity -->
-      <!-- <div class="mt-8 bg-white rounded-xl shadow-sm border border-gray-200">
-        <div class="px-8 py-6 border-b border-gray-200">
-          <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>
-        </div>
-        <div class="p-6">
-          <div class="space-y-4">
-            <div v-for="activity in recentActivities" :key="activity.id" class="flex items-center p-4 bg-gray-50 rounded-lg">
-              <div class="flex-shrink-0">
-                <div class="h-10 w-10 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 flex items-center justify-center">
-                  <component :is="activity.icon" class="h-5 w-5 text-white" />
-                </div>
-              </div>
-              <div class="ml-4 flex-1">
-                <p class="text-sm font-medium text-gray-900">{{ activity.title }}</p>
-                <p class="text-sm text-gray-500">{{ activity.description }}</p>
-              </div>
-              <div class="text-sm text-gray-400">{{ activity.time }}</div>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, computed } from 'vue';
+import { ref, onMounted, onBeforeUnmount, nextTick, computed, watch } from 'vue';
 import {
   Activity,
   Building2,
@@ -196,7 +175,7 @@ import {
 } from 'lucide-vue-next';
 import Chart from 'chart.js/auto';
 import { useStore } from 'vuex';
-import { FETCH_DASHBOARD_ANALYTICS } from '@/services/store/actions.type';
+import { FETCH_COMPANY, FETCH_DASHBOARD_ANALYTICS } from '@/services/store/actions.type';
 
 // Refs for charts
 const companyChart = ref(null);
@@ -207,45 +186,35 @@ const store = useStore();
 
 // State
 const isLoading = ref(false);
+const errorMessage = ref('');
 
 // Chart instances
-let companyChartInstance = null;
-let typeChartInstance = null;
-let statusChartInstance = null;
+let companyChartInstance = ref(null);
+let typeChartInstance = ref(null);
+let statusChartInstance = ref(null);
 
-// Sample data - replace with API calls
-const totalEmployees = ref(156);
-const activeEmployees = ref(142);
-const totalCompanies = ref(8);
-const walkinEmployees = ref(89);
+// Data refs
+const totalEmployees = ref(0);
+const activeEmployees = ref(0);
+const totalCompanies = ref(0);
+const walkinEmployees = ref(0);
+const selectedCompany = ref('all');
 
-
-const dashboardAnalyticsData = computed(()=> store.getters["company/dashboardAnalyticsData"]);
-
-
-
+const dashboardAnalyticsData = computed(() => store.getters["company/dashboardAnalyticsData"]);
+const companiesData = computed(() => store.getters["company/companyData"]);
 
 // Chart data
-const companyData = ref([
-  { label: 'TechCorp Solutions', value: 45 },
-  { label: 'Digital Innovations Ltd', value: 32 },
-  { label: 'Global Systems Inc', value: 28 },
-  { label: 'Future Technologies', value: 23 },
-  { label: 'Smart Solutions Group', value: 18 },
-  { label: 'CloudTech Dynamics', value: 10 }
-]);
-
+const companyData = ref([]);
 const typeData = ref([
-  { label: 'Walk-in', value: 89 },
-  { label: 'Hostel', value: 67 }
+  { label: 'Walk-in', value: 0 },
+  { label: 'Hostel', value: 0 }
 ]);
-
 const statusData = ref([
-  { label: 'Active', value: 142 },
-  { label: 'Absconded', value: 8 },
-  { label: 'Resigned', value: 4 },
-  { label: 'Rejected', value: 1 },
-  { label: 'KIV', value: 1 }
+  { label: 'Active', value: 0 },
+  { label: 'Absconded', value: 0 },
+  { label: 'Resigned', value: 0 },
+  { label: 'Rejected', value: 0 },
+  { label: 'KIV', value: 0 }
 ]);
 
 // Chart colors
@@ -271,42 +240,10 @@ const statusColors = [
   '#374151'  // gray-700 - KIV
 ];
 
-// Recent activities
-const recentActivities = ref([
-  {
-    id: 1,
-    icon: UserPlus,
-    title: 'New Employee Added',
-    description: 'John Doe joined TechCorp Solutions',
-    time: '2 hours ago'
-  },
-  {
-    id: 2,
-    icon: Building2,
-    title: 'Company Updated',
-    description: 'Digital Innovations Ltd information updated',
-    time: '4 hours ago'
-  },
-  {
-    id: 3,
-    icon: UserCheck,
-    title: 'Employee Status Changed',
-    description: 'Jane Smith status changed to Active',
-    time: '6 hours ago'
-  },
-  {
-    id: 4,
-    icon: Users,
-    title: 'Bulk Import Completed',
-    description: '15 employees imported successfully',
-    time: '1 day ago'
-  }
-]);
-
-// Chart creation functions
+// Chart creation function
 const createPieChart = (canvas, data, colors, title) => {
+  if (!canvas) return null;
   const ctx = canvas.getContext('2d');
-  
   return new Chart(ctx, {
     type: 'doughnut',
     data: {
@@ -324,9 +261,7 @@ const createPieChart = (canvas, data, colors, title) => {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: {
-          display: false
-        },
+        legend: { display: false },
         tooltip: {
           backgroundColor: 'rgba(0, 0, 0, 0.8)',
           titleColor: '#ffffff',
@@ -353,12 +288,16 @@ const createPieChart = (canvas, data, colors, title) => {
   });
 };
 
+// Initialize charts
 const initializeCharts = async () => {
   await nextTick();
   
+  // Destroy existing charts
+  destroyCharts();
+
   // Company Chart
   if (companyChart.value) {
-    companyChartInstance = createPieChart(
+    companyChartInstance.value = createPieChart(
       companyChart.value,
       companyData.value,
       companyColors,
@@ -368,7 +307,7 @@ const initializeCharts = async () => {
   
   // Type Chart
   if (typeChart.value) {
-    typeChartInstance = createPieChart(
+    typeChartInstance.value = createPieChart(
       typeChart.value,
       typeData.value,
       typeColors,
@@ -378,7 +317,7 @@ const initializeCharts = async () => {
   
   // Status Chart
   if (statusChart.value) {
-    statusChartInstance = createPieChart(
+    statusChartInstance.value = createPieChart(
       statusChart.value,
       statusData.value,
       statusColors,
@@ -387,62 +326,65 @@ const initializeCharts = async () => {
   }
 };
 
+// Destroy charts
 const destroyCharts = () => {
-  if (companyChartInstance) {
-    companyChartInstance.destroy();
-    companyChartInstance = null;
+  if (companyChartInstance.value) {
+    companyChartInstance.value.destroy();
+    companyChartInstance.value = null;
   }
-  if (typeChartInstance) {
-    typeChartInstance.destroy();
-    typeChartInstance = null;
+  if (typeChartInstance.value) {
+    typeChartInstance.value.destroy();
+    typeChartInstance.value = null;
   }
-  if (statusChartInstance) {
-    statusChartInstance.destroy();
-    statusChartInstance = null;
+  if (statusChartInstance.value) {
+    statusChartInstance.value.destroy();
+    statusChartInstance.value = null;
   }
 };
 
-const refreshData = async () => {
+// Fetch companies
+const loadCompanies = async () => {
   isLoading.value = true;
-  
+  errorMessage.value = '';
   try {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Destroy existing charts
-    destroyCharts();
-    
-    // Reinitialize charts with new data
-    await initializeCharts();
-    
+    await store.dispatch(`company/${FETCH_COMPANY}`);
   } catch (error) {
-    console.error('Error refreshing data:', error);
+    console.error("Error loading companies:", error);
+    errorMessage.value = 'Failed to load companies. Please try again.';
   } finally {
     isLoading.value = false;
   }
 };
 
-
-
-async function fetchDashboardAnalyticsData() {
+// Fetch dashboard analytics and update charts
+const fetchAndUpdateCharts = async () => {
+  isLoading.value = true;
+  errorMessage.value = '';
+  
   try {
-    const response = await store.dispatch(`company/${FETCH_DASHBOARD_ANALYTICS}`);
-    const data = dashboardAnalyticsData?.value || {};
+    // Fetch dashboard analytics
+    await store.dispatch(`company/${FETCH_DASHBOARD_ANALYTICS}`, { company: selectedCompany.value });
+    const data = dashboardAnalyticsData.value || {};
 
     // Update scalar values
     totalEmployees.value = data.total_employees || 0;
-    activeEmployees.value = data.total_active_employees || 0;
+    activeEmployees.value = data.candidates_by_status.active || 0;
     totalCompanies.value = data.total_companies || 0;
-    walkinEmployees.value = data.candidates_by_residence.walk_in || 0;
-    
+    walkinEmployees.value = data.candidates_by_residence?.walk_in || 0;
 
-    // Transform candidates_by_residence to match typeData format
+    // Update company data
+    companyData.value = companiesData.value.map(company => ({
+      label: company.company_name,
+      value: company.employee_count || 0
+    }));
+
+    // Update type data
     typeData.value = [
       { label: 'Hostel', value: data.candidates_by_residence?.hostel || 0 },
       { label: 'Walk-in', value: data.candidates_by_residence?.walk_in || 0 }
     ];
 
-    // Transform candidates_by_status to match statusData format
+    // Update status data
     statusData.value = [
       { label: 'Active', value: data.candidates_by_status?.active || 0 },
       { label: 'Absconded', value: data.candidates_by_status?.absconded || 0 },
@@ -450,24 +392,29 @@ async function fetchDashboardAnalyticsData() {
       { label: 'Rejected', value: data.candidates_by_status?.rejected || 0 },
       { label: 'KIV', value: data.candidates_by_status?.kiv || 0 }
     ];
+
+    // Reinitialize charts with updated data
+    await initializeCharts();
   } catch (error) {
-    console.error('Error fetching dashboard analytics data:', error);
-    // Optionally reset values on error
-    totalEmployees.value = 0;
-    activeEmployees.value = 0;
-    totalCompanies.value = 0;
-    typeData.value = typeData.value.map(item => ({ ...item, value: 0 }));
-    statusData.value = statusData.value.map(item => ({ ...item, value: 0 }));
+    console.error('Error fetching dashboard analytics:', error);
+    errorMessage.value = 'Failed to load dashboard data. Please try again.';
+  } finally {
+    isLoading.value = false;
   }
-}
+};
 
+// Watch for changes in selected company
+watch(selectedCompany, () => {
+  fetchAndUpdateCharts();
+});
 
-
-
-
-// Lifecycle
+// Lifecycle hooks
 onMounted(() => {
-  initializeCharts();
-  fetchDashboardAnalyticsData();
+  loadCompanies();
+  fetchAndUpdateCharts();
+});
+
+onBeforeUnmount(() => {
+  destroyCharts();
 });
 </script>
