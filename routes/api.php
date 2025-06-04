@@ -2,6 +2,7 @@
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardAnalyticsController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\TodoController;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,13 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
     Route::post('update-company', [CompanyController::class, 'update']);
 
     Route::get('get-dashboard-analytics', [DashboardAnalyticsController::class, 'index']);
+
+    Route::post('save-todo', [TodoController::class, 'store']);
+    Route::get('get-todos', [TodoController::class, 'show']);
+    Route::post('update-todo', [TodoController::class, 'update']);
+    Route::get('get-todo-details', [TodoController::class, 'getTodoDetails']);
+    Route::delete('delete-todo', [TodoController::class, 'destroy']);
+
 
 
 

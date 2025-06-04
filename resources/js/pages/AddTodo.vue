@@ -150,11 +150,21 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import { CheckCircle, List, Plus, RotateCcw, Save } from 'lucide-vue-next';
+import { toast } from 'vue3-toastify';
+import { SAVE_TODO } from '@/services/store/actions.type';
+
+// Router and store
+const router = useRouter();
+const store = useStore();
 
 // State
 const isSubmitting = ref(false);
 const showSuccess = ref(false);
+const error = ref(null);
+const formErrors = ref([]);
 
 // Form data
 const form = reactive({
@@ -165,35 +175,66 @@ const form = reactive({
   due_date: ''
 });
 
-// Methods
+// Validation
+const validateForm = () => {
+  formErrors.value = [];
+
+  if (!form.heading.trim()) {
+    formErrors.value.push('Heading is required.');
+  }
+  if (!form.status) {
+    formErrors.value.push('Status is required.');
+  }
+  if (!form.priority) {
+    formErrors.value.push('Priority is required.');
+  }
+  if (!form.due_date) {
+    formErrors.value.push('Due date is required.');
+  }
+
+  return formErrors.value.length === 0;
+};
+
+// Submit handler
 const submitTodo = async () => {
   isSubmitting.value = true;
-  
+  error.value = null;
+  formErrors.value = [];
+
+  if (!validateForm()) {
+    isSubmitting.value = false;
+    return;
+  }
+
   try {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    console.log('Creating todo:', form);
-    
-    // Show success message
+    const todoData = {
+      heading: form.heading,
+      description: form.description || null,
+      status: form.status,
+      priority: form.priority,
+      due_date: form.due_date
+    };
+
+    await store.dispatch('todo/' + SAVE_TODO, todoData);
+    router.push({ name: "ListTodos" });
     showSuccess.value = true;
-    setTimeout(() => {
-      showSuccess.value = false;
-    }, 3000);
-    
-    // Reset form
+    toast.success('ToDo created successfully!');
     resetForm();
-    
-  } catch (error) {
-    console.error('Error creating todo:', error);
+    setTimeout(() => (showSuccess.value = false), 3000);
+  } catch (err) {
+    error.value =
+      err.response?.data?.message || 'Error creating ToDo. Please try again.';
   } finally {
     isSubmitting.value = false;
   }
 };
 
+// Reset handler
 const resetForm = () => {
   Object.keys(form).forEach(key => {
     form[key] = '';
   });
+  error.value = null;
+  formErrors.value = [];
 };
 </script>

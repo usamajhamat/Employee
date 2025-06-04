@@ -11,8 +11,6 @@ import { User } from "lucide-vue-next";
 import { LogOut } from "lucide-vue-next";
 import { useStore } from "vuex";
 import {
-    FETCH_CUSTOMER_PAYMENTS,
-    FETCH_SALES,
     FETCH_USER,
     LOGOUT,
 } from "@/services/store/actions.type";

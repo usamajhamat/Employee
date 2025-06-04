@@ -39,7 +39,7 @@
                         :class="{
                             'bg-teal-800/50 text-white':
                                 $route.name === 'Dashboard',
-                            'justify-center': !isExpanded
+                            'justify-center': !isExpanded,
                         }"
                     >
                         <div
@@ -68,145 +68,92 @@
                 </li>
             </ul>
 
-            <!-- EMPLOYEE MANAGEMENT Section -->
-            <div class="mt-6 mb-4">
-                <h2 
-                    class="px-2 mb-2 text-xs font-semibold text-teal-300 uppercase tracking-wider"
-                    :class="{ 'text-center': !isExpanded }"
-                >
-                    {{ isExpanded ? 'Employee Management' : 'Employee' }}
-                </h2>
-                <ul class="space-y-2">
-                    <!-- Employee Dropdown -->
-                    <li>
-                        <Accordion type="single" collapsible class="w-full">
-                            <AccordionItem value="employees" class="border-none">
-                                <AccordionTrigger 
-                                    class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/50 hover:no-underline"
-                                    :class="{
-                                        'bg-teal-800/50 text-white': 
-                                            $route.name === 'AddEmployee' || $route.name === 'ListEmployees',
-                                        'justify-center': !isExpanded
-                                    }"
-                                >
-                                    <div class="flex items-center w-full">
-                                        <div
-                                            class="transition-all duration-200 rounded-full"
-                                            :class="{
-                                                'w-1 h-6 bg-white mr-3': 
-                                                    ($route.name === 'AddEmployee' || $route.name === 'ListEmployees') && isExpanded,
-                                            }"
-                                        ></div>
-                                        <UserPlus
-                                            class="flex-shrink-0 w-5 h-5 transition-colors duration-200 group-hover:text-white"
-                                            :class="{
-                                                'text-white': $route.name === 'AddEmployee' || $route.name === 'ListEmployees',
-                                            }"
-                                        />
-                                        <span
-                                            class="ms-3 whitespace-nowrap flex-1 text-left"
-                                            :class="[
-                                                !isExpanded ? 'hidden' : '',
-                                                { 'text-white': $route.name === 'AddEmployee' || $route.name === 'ListEmployees' }
-                                            ]"
-                                        >
-                                            Employees
-                                           
-                                        </span>
-                                    </div>
-                                </AccordionTrigger>
-                                <AccordionContent v-if="isExpanded" class="pb-0">
-                                    <ul class="ml-6 mt-2 space-y-1">
-                                        <li>
-                                            <router-link
-                                                :to="{ name: 'AddEmployee' }"
-                                                class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/30"
-                                                :class="{
-                                                    'bg-teal-800/30 text-white': $route.name === 'AddEmployee'
-                                                }"
-                                            >
-                                                <Plus class="flex-shrink-0 w-4 h-4 mr-2" />
-                                                <span class="text-sm">Add Employee</span>
-                                            </router-link>
-                                        </li>
-                                        <li>
-                                            <router-link
-                                                :to="{ name: 'ListEmployees' }"
-                                                class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/30"
-                                                :class="{
-                                                    'bg-teal-800/30 text-white': $route.name === 'ListEmployees'
-                                                }"
-                                            >
-                                                <List class="flex-shrink-0 w-4 h-4 mr-2" />
-                                                <span class="text-sm">List Employees</span>
-                                            </router-link>
-                                        </li>
-                                    </ul>
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
-                    </li>
-                </ul>
-            </div>
 
             <!-- COMPANY MANAGEMENT Section -->
             <div class="mt-6 mb-4">
-                <h2 
+                <h2
                     class="px-2 mb-2 text-xs font-semibold text-teal-300 uppercase tracking-wider"
                     :class="{ 'text-center': !isExpanded }"
                 >
-                    {{ isExpanded ? 'Company Management' : 'Company' }}
+                    {{ isExpanded ? "Company Management" : "Company" }}
                 </h2>
                 <ul class="space-y-2">
                     <!-- Company Dropdown -->
                     <li>
                         <Accordion type="single" collapsible class="w-full">
-                            <AccordionItem value="companies" class="border-none">
-                                <AccordionTrigger 
+                            <AccordionItem
+                                value="companies"
+                                class="border-none"
+                            >
+                                <AccordionTrigger
                                     class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/50 hover:no-underline"
                                     :class="{
-                                        'bg-teal-800/50 text-white': 
-                                            $route.name === 'AddCompany' || $route.name === 'ListCompanies',
-                                        'justify-center': !isExpanded
+                                        'bg-teal-800/50 text-white':
+                                            $route.name === 'AddCompany' ||
+                                            $route.name === 'ListCompanies',
+                                        'justify-center': !isExpanded,
                                     }"
                                 >
                                     <div class="flex items-center w-full">
                                         <div
                                             class="transition-all duration-200 rounded-full"
                                             :class="{
-                                                'w-1 h-6 bg-white mr-3': 
-                                                    ($route.name === 'AddCompany' || $route.name === 'ListCompanies') && isExpanded,
+                                                'w-1 h-6 bg-white mr-3':
+                                                    ($route.name ===
+                                                        'AddCompany' ||
+                                                        $route.name ===
+                                                            'ListCompanies') &&
+                                                    isExpanded,
                                             }"
                                         ></div>
                                         <Building2
                                             class="flex-shrink-0 w-5 h-5 transition-colors duration-200 group-hover:text-white"
                                             :class="{
-                                                'text-white': $route.name === 'AddCompany' || $route.name === 'ListCompanies',
+                                                'text-white':
+                                                    $route.name ===
+                                                        'AddCompany' ||
+                                                    $route.name ===
+                                                        'ListCompanies',
                                             }"
                                         />
                                         <span
                                             class="ms-3 whitespace-nowrap flex-1 text-left"
                                             :class="[
                                                 !isExpanded ? 'hidden' : '',
-                                                { 'text-white': $route.name === 'AddCompany' || $route.name === 'ListCompanies' }
+                                                {
+                                                    'text-white':
+                                                        $route.name ===
+                                                            'AddCompany' ||
+                                                        $route.name ===
+                                                            'ListCompanies',
+                                                },
                                             ]"
                                         >
                                             Companies
                                         </span>
                                     </div>
                                 </AccordionTrigger>
-                                <AccordionContent v-if="isExpanded" class="pb-0">
+                                <AccordionContent
+                                    v-if="isExpanded"
+                                    class="pb-0"
+                                >
                                     <ul class="ml-6 mt-2 space-y-1">
                                         <li>
                                             <router-link
                                                 :to="{ name: 'AddCompany' }"
                                                 class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/30"
                                                 :class="{
-                                                    'bg-teal-800/30 text-white': $route.name === 'AddCompany'
+                                                    'bg-teal-800/30 text-white':
+                                                        $route.name ===
+                                                        'AddCompany',
                                                 }"
                                             >
-                                                <Plus class="flex-shrink-0 w-4 h-4 mr-2" />
-                                                <span class="text-sm">Add Company</span>
+                                                <Plus
+                                                    class="flex-shrink-0 w-4 h-4 mr-2"
+                                                />
+                                                <span class="text-sm"
+                                                    >Add Company</span
+                                                >
                                             </router-link>
                                         </li>
                                         <li>
@@ -214,11 +161,17 @@
                                                 :to="{ name: 'ListCompanies' }"
                                                 class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/30"
                                                 :class="{
-                                                    'bg-teal-800/30 text-white': $route.name === 'ListCompanies'
+                                                    'bg-teal-800/30 text-white':
+                                                        $route.name ===
+                                                        'ListCompanies',
                                                 }"
                                             >
-                                                <List class="flex-shrink-0 w-4 h-4 mr-2" />
-                                                <span class="text-sm">List Companies</span>
+                                                <List
+                                                    class="flex-shrink-0 w-4 h-4 mr-2"
+                                                />
+                                                <span class="text-sm"
+                                                    >List Companies</span
+                                                >
                                             </router-link>
                                         </li>
                                     </ul>
@@ -229,8 +182,235 @@
                 </ul>
             </div>
 
-            <!-- REPORTS Section -->
-           
+
+
+            
+            <!-- EMPLOYEE MANAGEMENT Section -->
+            <div class="mt-6 mb-4">
+                <h2
+                    class="px-2 mb-2 text-xs font-semibold text-teal-300 uppercase tracking-wider"
+                    :class="{ 'text-center': !isExpanded }"
+                >
+                    {{ isExpanded ? "Employee Management" : "Employee" }}
+                </h2>
+                <ul class="space-y-2">
+                    <!-- Employee Dropdown -->
+                    <li>
+                        <Accordion type="single" collapsible class="w-full">
+                            <AccordionItem
+                                value="employees"
+                                class="border-none"
+                            >
+                                <AccordionTrigger
+                                    class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/50 hover:no-underline"
+                                    :class="{
+                                        'bg-teal-800/50 text-white':
+                                            $route.name === 'AddEmployee' ||
+                                            $route.name === 'ListEmployees',
+                                        'justify-center': !isExpanded,
+                                    }"
+                                >
+                                    <div class="flex items-center w-full">
+                                        <div
+                                            class="transition-all duration-200 rounded-full"
+                                            :class="{
+                                                'w-1 h-6 bg-white mr-3':
+                                                    ($route.name ===
+                                                        'AddEmployee' ||
+                                                        $route.name ===
+                                                            'ListEmployees') &&
+                                                    isExpanded,
+                                            }"
+                                        ></div>
+                                        <UserPlus
+                                            class="flex-shrink-0 w-5 h-5 transition-colors duration-200 group-hover:text-white"
+                                            :class="{
+                                                'text-white':
+                                                    $route.name ===
+                                                        'AddEmployee' ||
+                                                    $route.name ===
+                                                        'ListEmployees',
+                                            }"
+                                        />
+                                        <span
+                                            class="ms-3 whitespace-nowrap flex-1 text-left"
+                                            :class="[
+                                                !isExpanded ? 'hidden' : '',
+                                                {
+                                                    'text-white':
+                                                        $route.name ===
+                                                            'AddEmployee' ||
+                                                        $route.name ===
+                                                            'ListEmployees',
+                                                },
+                                            ]"
+                                        >
+                                            Employees
+                                        </span>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent
+                                    v-if="isExpanded"
+                                    class="pb-0"
+                                >
+                                    <ul class="ml-6 mt-2 space-y-1">
+                                        <li>
+                                            <router-link
+                                                :to="{ name: 'AddEmployee' }"
+                                                class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/30"
+                                                :class="{
+                                                    'bg-teal-800/30 text-white':
+                                                        $route.name ===
+                                                        'AddEmployee',
+                                                }"
+                                            >
+                                                <Plus
+                                                    class="flex-shrink-0 w-4 h-4 mr-2"
+                                                />
+                                                <span class="text-sm"
+                                                    >Add Employee</span
+                                                >
+                                            </router-link>
+                                        </li>
+                                        <li>
+                                            <router-link
+                                                :to="{ name: 'ListEmployees' }"
+                                                class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/30"
+                                                :class="{
+                                                    'bg-teal-800/30 text-white':
+                                                        $route.name ===
+                                                        'ListEmployees',
+                                                }"
+                                            >
+                                                <List
+                                                    class="flex-shrink-0 w-4 h-4 mr-2"
+                                                />
+                                                <span class="text-sm"
+                                                    >List Employees</span
+                                                >
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mt-6 mb-4">
+                <h2
+                    class="px-2 mb-2 text-xs font-semibold text-teal-300 uppercase tracking-wider"
+                    :class="{ 'text-center': !isExpanded }"
+                >
+                    {{ isExpanded ? "ToDo Management" : "ToDo" }}
+                </h2>
+                <ul class="space-y-2">
+                    <!-- ToDo Dropdown -->
+                    <li>
+                        <Accordion type="single" collapsible class="w-full">
+                            <AccordionItem value="todos" class="border-none">
+                                <AccordionTrigger
+                                    class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/50 hover:no-underline"
+                                    :class="{
+                                        'bg-teal-800/50 text-white':
+                                            $route.name === 'AddTodo' ||
+                                            $route.name === 'ListTodos' ||
+                                            $route.name === 'EditTodo',
+                                        'justify-center': !isExpanded,
+                                    }"
+                                >
+                                    <div class="flex items-center w-full">
+                                        <div
+                                            class="transition-all duration-200 rounded-full"
+                                            :class="{
+                                                'w-1 h-6 bg-white mr-3':
+                                                    ($route.name ===
+                                                        'AddTodo' ||
+                                                        $route.name ===
+                                                            'ListTodos' ||
+                                                        $route.name ===
+                                                            'EditTodo') &&
+                                                    isExpanded,
+                                            }"
+                                        ></div>
+                                        <ListChecks
+                                            class="flex-shrink-0 w-5 h-5 transition-colors duration-200 group-hover:text-white"
+                                            :class="{
+                                                'text-white':
+                                                    $route.name === 'AddTodo' ||
+                                                    $route.name ===
+                                                        'ListTodos' ||
+                                                    $route.name === 'EditTodo',
+                                            }"
+                                        />
+                                        <span
+                                            class="ms-3 whitespace-nowrap flex-1 text-left"
+                                            :class="[
+                                                !isExpanded ? 'hidden' : '',
+                                                {
+                                                    'text-white':
+                                                        $route.name ===
+                                                            'AddTodo' ||
+                                                        $route.name ===
+                                                            'ListTodos' ||
+                                                        $route.name ===
+                                                            'EditTodo',
+                                                },
+                                            ]"
+                                        >
+                                            ToDo List
+                                        </span>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent
+                                    v-if="isExpanded"
+                                    class="pb-0"
+                                >
+                                    <ul class="ml-6 mt-2 space-y-1">
+                                        <li>
+                                            <router-link
+                                                :to="{ name: 'AddTodo' }"
+                                                class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/30"
+                                                :class="{
+                                                    'bg-teal-800/30 text-white':
+                                                        $route.name ===
+                                                        'AddTodo',
+                                                }"
+                                            >
+                                                <Plus
+                                                    class="flex-shrink-0 w-4 h-4 mr-2"
+                                                />
+                                                <span class="text-sm"
+                                                    >Add New ToDo</span
+                                                >
+                                            </router-link>
+                                        </li>
+                                        <li>
+                                            <router-link
+                                                :to="{ name: 'ListTodos' }"
+                                                class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/30"
+                                                :class="{
+                                                    'bg-teal-800/30 text-white':
+                                                        $route.name ===
+                                                        'ListTodos',
+                                                }"
+                                            >
+                                                <List
+                                                    class="flex-shrink-0 w-4 h-4 mr-2"
+                                                />
+                                                <span class="text-sm"
+                                                    >List ToDos</span
+                                                >
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <!-- User Profile Section -->
@@ -250,10 +430,10 @@
             </div>
             <div class="ml-3">
                 <p class="text-sm font-medium text-white capitalize">
-                    {{ user?.name || 'Admin' }}
+                    {{ user?.name || "Admin" }}
                 </p>
                 <p class="text-xs text-teal-300">
-                    {{ user?.email || 'admin@gmail.com' }}
+                    {{ user?.email || "admin@gmail.com" }}
                 </p>
             </div>
             <button
@@ -284,12 +464,13 @@ import {
     ChevronRight,
     LayoutDashboard,
     List,
+    ListChecks,
     LogOut,
     PieChart,
     Plus,
     User,
     UserPlus,
-    Users
+    Users,
 } from "lucide-vue-next";
 import {
     Accordion,
