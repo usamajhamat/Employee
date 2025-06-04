@@ -48,6 +48,24 @@ export default [
                 component: () => import("../../pages/EditEmployee.vue"),
                 meta: { requiresAuth: true },
             },
+            {
+                path: "/add-todo",
+                name: "AddTodo",
+                component: () => import("../../pages/AddTodo.vue"),
+                meta: { requiresAuth: true },
+            },
+            {
+                path: "/list-todos",
+                name: "ListTodos",
+                component: () => import("../../pages/ListTodos.vue"),
+                meta: { requiresAuth: true },
+            },
+            {
+                path: "/edit-todo",
+                name: "EditTodo",
+                component: () => import("../../pages/EditTodo.vue"),
+                meta: { requiresAuth: true },
+            },
         ],
     },
     // pages with no layout
