@@ -500,9 +500,9 @@ function handleLogout() {
 }
 
 // Methods
-// const toggleSidebar = () => {
-//     isExpanded.value = !isExpanded.value;
-// };
+const toggleSidebar = () => {
+    isExpanded.value = !isExpanded.value;
+};
 
 onMounted(() => {
     fetchUser();
