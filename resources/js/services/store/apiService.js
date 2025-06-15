@@ -98,4 +98,11 @@ export default {
             params: params,
         });
     },
+
+    saveWeeklyInfo(params) {
+        return apiClient.post("/save-weekly-info", params);
+    },
+    getWeeklyReports(params) {
+        return apiClient.get("/weekly-reports", { params: params });
+    },
 };

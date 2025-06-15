@@ -22,7 +22,7 @@
                 @change="fetchAndUpdateCharts"
               >
                 <option value="all" class="bg-white text-gray-900">All Companies</option>
-                <option v-for="company in companiesData" :key="company.id" :value="company.company_name" class="bg-white text-gray-900">
+                <option v-for="company in companiesData?.data" :key="company.id" :value="company.company_name" class="bg-white text-gray-900">
                   {{ company.company_name }}
                 </option>
               </select>
@@ -373,7 +373,7 @@ const fetchAndUpdateCharts = async () => {
     walkinEmployees.value = data.candidates_by_residence?.walk_in || 0;
 
     // Update company data
-    companyData.value = companiesData.value.map(company => ({
+    companyData.value = companiesData?.data?.value.map(company => ({
       label: company.company_name,
       value: company.employee_count || 0
     }));

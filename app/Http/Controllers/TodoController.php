@@ -28,12 +28,44 @@ class TodoController extends Controller
     }
 
 
-    public function show()
-    {
-        $todos = Todo::get();
+   public function show(Request $request)
+{
+    // Log incoming filters
+    Log::info('Todo filters: ', $request->all());
 
-        return $todos;
+    // Extract filters
+    $perPage  = $request->input('per_page', 50);
+    $search   = $request->input('search');
+    $status   = $request->input('status');
+    $priority = $request->input('priority'); // e.g., High, Medium, Low
+
+    // Build query
+    $query = Todo::query();
+
+    if ($search) {
+        $query->where(function ($q) use ($search) {
+            $q->where('heading', 'like', "%{$search}%")
+              ->orWhere('description', 'like', "%{$search}%");
+        });
     }
+
+    if ($status) {
+        $query->where('status', $status);
+    }
+
+    if ($priority) {
+        $query->where('priority', $priority);
+    }
+
+    // Paginate results
+    $todos = $query->paginate($perPage);
+
+    // Log matched todos
+    Log::info('Retrieved todos: ', $todos->items());
+
+    return response()->json($todos);
+}
+
 
 
     public function getTodoDetails(Request $request)

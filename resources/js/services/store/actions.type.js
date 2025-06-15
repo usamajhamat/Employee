@@ -18,3 +18,5 @@ export const FETCH_TODO_DETAILS = "fetchTodoDetails";
 export const SAVE_TODO = "saveTodo";
 export const UPDATE_TODO = "updateTodo";
 export const DELETE_TODO = "deleteTodo";
+export const CREATE_WEEKLY_INFO = 'createWeeklyInfo';
+export const FETCH_WEEKLY_REPORTS = 'fetchWeeklyReports';

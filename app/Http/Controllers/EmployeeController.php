@@ -28,7 +28,7 @@ class EmployeeController extends Controller
             'join_accommodation' => $request->input('join_accommodation'),
             'exit_accommodation' => $request->input('exit_accommodation'),
             'join_company' => $request->input('join_company'),
-            'status' =>$request->input('status'),
+            'status' => $request->input('status'),
             'residance' => $request->input('residance'),
         ]);
 
@@ -39,12 +39,43 @@ class EmployeeController extends Controller
 
     }
 
-    public function show()
-    {
-        $employees = Candidate::all();
-        Log::info('Retrieved employees: ', $employees->toArray());
-        return response()->json($employees);
+   public function show(Request $request)
+{
+    // Get filter values from the request
+    $perPage = $request->input('per_page', 50); // Default to 50 if not provided
+    $search = $request->input('search');
+    $company = $request->input('company');
+    $status = $request->input('status');
+
+    // Build query with filters
+    $query = Candidate::query();
+
+    if ($search) {
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%");
+            //   ->orWhere('last_name', 'like', "%{$search}%")
+            //   ->orWhere('email', 'like', "%{$search}%");
+        });
     }
+
+    if ($company) {
+        $query->where('company', $company);
+    }
+
+    if ($status) {
+        $query->where('status', $status);
+    }
+
+    // Paginate
+    $employees = $query->paginate($perPage);
+
+    // Log the filters and result count
+    Log::info('Retrieved employees with filters: ', $request->all());
+    Log::info('Total matching employees: ' . $employees->total());
+
+    return response()->json($employees);
+}
+
 
 
     public function getEmployeeDetails(Request $request)
@@ -92,7 +123,7 @@ class EmployeeController extends Controller
                 'join_accommodation' => $request->input('join_accommodation'),
                 'exit_accommodation' => $request->input('exit_accommodation'),
                 'join_company' => $request->input('join_company'),
-                'status' =>$request->input('status'),
+                'status' => $request->input('status'),
             ]);
             return response()->json(['message' => 'Employee updated successfully'], 200);
         } else {

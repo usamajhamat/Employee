@@ -66,6 +66,18 @@ export default [
                 component: () => import("../../pages/EditTodo.vue"),
                 meta: { requiresAuth: true },
             },
+            {
+                path: "/add-weekly-info",
+                name: "AddWeeklyInfo",
+                component: () => import("../../pages/AddWeeklyInfo.vue"),
+                meta: { requiresAuth: true },
+            },
+            {
+                path: "/weekly-reports",
+                name: "WeeklyReports",
+                component: () => import("../../pages/WeeklyReports.vue"),
+                meta: { requiresAuth: true },
+            },
         ],
     },
     // pages with no layout

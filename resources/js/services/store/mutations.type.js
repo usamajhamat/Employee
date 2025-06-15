@@ -18,6 +18,8 @@ export const SET_DASHBOARD_ANALYTICS = "setDashboardAnalytics";
 export const SET_TODOS = "setTodos";
 export const SET_TODO_DETAILS = "setTodoDetails";
 
+export const SET_WEEKLY_REPORTS = 'setWeeklyReports';
+
 
 
 

@@ -23,12 +23,37 @@ class CompanyController extends Controller
     }
 
 
-    public function show()
-    {
-        $companies = Company::all();
-        Log::info('Retrieved companies: ', $companies->toArray());
-        return response()->json($companies);
+   public function show(Request $request)
+{
+    // Get request inputs
+    $perPage = $request->input('per_page', 50); // Default to 50
+    $search = $request->input('search');
+    $status = $request->input('status');
+
+    // Start query
+    $query = Company::query();
+
+    // Apply search filter (e.g., by name)
+    if ($search) {
+        $query->where('company_name', 'like', "%{$search}%");
     }
+
+    // Apply status filter
+    if ($status) {
+        $query->where('status', $status);
+    }
+
+    // Paginate the result
+    $companies = $query->paginate($perPage);
+
+    // Log input and filtered results
+    Log::info('Company filters: ', $request->all());
+    Log::info('Retrieved companies: ', $companies->items());
+
+    return response()->json($companies);
+}
+
+
 
 
     public function destroy(Request $request)

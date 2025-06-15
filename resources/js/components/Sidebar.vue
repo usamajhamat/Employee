@@ -68,7 +68,6 @@
                 </li>
             </ul>
 
-
             <!-- COMPANY MANAGEMENT Section -->
             <div class="mt-6 mb-4">
                 <h2
@@ -183,8 +182,8 @@
             </div>
 
 
-
             
+
             <!-- EMPLOYEE MANAGEMENT Section -->
             <div class="mt-6 mb-4">
                 <h2
@@ -411,7 +410,115 @@
                     </li>
                 </ul>
             </div>
+
+              <!-- WEEKLY INFORMATION Section -->
+        <div class="mt-6 mb-4">
+            <h2
+                class="px-2 mb-2 text-xs font-semibold text-teal-300 uppercase tracking-wider"
+                :class="{ 'text-center': !isExpanded }"
+            >
+                {{ isExpanded ? "Weekly Information" : "Weekly" }}
+            </h2>
+            <ul class="space-y-2">
+                <!-- Weekly Info Dropdown -->
+                <li>
+                    <Accordion type="single" collapsible class="w-full">
+                        <AccordionItem value="weekly" class="border-none">
+                            <AccordionTrigger
+                                class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/50 hover:no-underline"
+                                :class="{
+                                    'bg-teal-800/50 text-white':
+                                        $route.name === 'AddWeeklyInfo' ||
+                                        $route.name === 'WeeklyReports',
+                                    'justify-center': !isExpanded,
+                                }"
+                            >
+                                <div class="flex items-center w-full">
+                                    <div
+                                        class="transition-all duration-200 rounded-full"
+                                        :class="{
+                                            'w-1 h-6 bg-white mr-3':
+                                                ($route.name ===
+                                                    'AddWeeklyInfo' ||
+                                                    $route.name ===
+                                                        'WeeklyReports') &&
+                                                isExpanded,
+                                        }"
+                                    ></div>
+                                    <Calendar
+                                        class="flex-shrink-0 w-5 h-5 transition-colors duration-200 group-hover:text-white"
+                                        :class="{
+                                            'text-white':
+                                                $route.name ===
+                                                    'AddWeeklyInfo' ||
+                                                $route.name === 'WeeklyReports',
+                                        }"
+                                    />
+                                    <span
+                                        class="ms-3 whitespace-nowrap flex-1 text-left"
+                                        :class="[
+                                            !isExpanded ? 'hidden' : '',
+                                            {
+                                                'text-white':
+                                                    $route.name ===
+                                                        'AddWeeklyInfo' ||
+                                                    $route.name ===
+                                                        'WeeklyReports',
+                                            },
+                                        ]"
+                                    >
+                                        Weekly Info
+                                    </span>
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent v-if="isExpanded" class="pb-0">
+                                <ul class="ml-6 mt-2 space-y-1">
+                                    <li>
+                                        <router-link
+                                            :to="{ name: 'AddWeeklyInfo' }"
+                                            class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/30"
+                                            :class="{
+                                                'bg-teal-800/30 text-white':
+                                                    $route.name ===
+                                                    'AddWeeklyInfo',
+                                            }"
+                                        >
+                                            <Plus
+                                                class="flex-shrink-0 w-4 h-4 mr-2"
+                                            />
+                                            <span class="text-sm"
+                                                >Add Weekly Info</span
+                                            >
+                                        </router-link>
+                                    </li>
+                                    <li>
+                                        <router-link
+                                            :to="{ name: 'WeeklyReports' }"
+                                            class="flex items-center p-2 rounded-lg group transition-all duration-200 text-teal-300 hover:text-white hover:bg-teal-800/30"
+                                            :class="{
+                                                'bg-teal-800/30 text-white':
+                                                    $route.name ===
+                                                    'WeeklyReports',
+                                            }"
+                                        >
+                                            <BarChart3
+                                                class="flex-shrink-0 w-4 h-4 mr-2"
+                                            />
+                                            <span class="text-sm"
+                                                >Weekly Reports</span
+                                            >
+                                        </router-link>
+                                    </li>
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </li>
+            </ul>
         </div>
+        </div>
+
+      
 
         <!-- User Profile Section -->
         <div
