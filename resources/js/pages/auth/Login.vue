@@ -11,13 +11,13 @@
             </div>
           </div>
         </div>
-        <h1 class="text-2xl font-bold text-white">EmployeeHub</h1>
-        <p class="text-teal-100 mt-1">Employee Management System</p>
+        <h1 class="text-2xl font-bold text-white">Embun Karisma Sdn Bhd</h1>
+        <!-- <p class="text-teal-100 mt-1">Employee Management System</p> -->
       </div>
 
       <!-- Form Section -->
       <div class="p-6 pt-8">
-        <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Access Employee Portal</h2>
+        <!-- <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Access Employee Portal</h2> -->
         
         <form @submit.prevent="handleLogin" class="space-y-5">
           <!-- Email Input -->
@@ -96,8 +96,8 @@
         <div class="mt-6 text-center">
           <p class="text-xs text-gray-500">
             Need help? Contact IT Support at 
-            <a href="mailto:support@company.com" class="text-teal-600 hover:text-teal-800">
-              support@company.com
+            <a href="mailto:apek.recruitment@gmail.com" class="text-teal-600 hover:text-teal-800">
+              apek.recruitment@gmail.com
             </a>
           </p>
         </div>

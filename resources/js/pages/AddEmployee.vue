@@ -276,7 +276,7 @@
                                     <option value="">Select Company</option>
                                     <option
                                         :value="company.company_name"
-                                        v-for="company in companiesData"
+                                        v-for="company in companiesData?.data"
                                         :key="company.id"
                                     >
                                         {{ company.company_name }}
