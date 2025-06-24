@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidate;
 use Illuminate\Http\Request;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 class EmployeeController extends Controller
 {
@@ -14,6 +14,7 @@ class EmployeeController extends Controller
         Candidate::create([
             'company' => $request->input('company'),
             'candidate_id' => $request->input('candidate_id'),
+            'contact_name' => $request->input('contact_name'),
             'contact_number' => $request->input('contact_number'),
             'name' => $request->input('name'),
             'ic_number' => $request->input('ic_number'),
@@ -24,7 +25,11 @@ class EmployeeController extends Controller
             'state' => $request->input('state'),
             'address' => $request->input('address'),
             'bank_account' => $request->input('bank_account'),
+            'bank_name' => $request->input('bank_name'),
+            'emergency_contact_name' => $request->input('emergency_contact_name'),
             'emergency_contact' => $request->input('emergency_contact'),
+            'emergency_contact_two' => $request->input('emergency_contact_two'),
+            'emergency_contact_two_name' => $request->input('emergency_contact_two_name'),
             'join_accommodation' => $request->input('join_accommodation'),
             'exit_accommodation' => $request->input('exit_accommodation'),
             'join_company' => $request->input('join_company'),
@@ -124,6 +129,12 @@ class EmployeeController extends Controller
                 'exit_accommodation' => $request->input('exit_accommodation'),
                 'join_company' => $request->input('join_company'),
                 'status' => $request->input('status'),
+                'contact_name' => $request->input('contact_name'),
+                'bank_name' => $request->input('bank_name'),
+                'emergency_contact_name' => $request->input('emergency_contact_name'),
+                'emergency_contact_two' => $request->input('emergency_contact_two'),
+                'emergency_contact_two_name' => $request->input('emergency_contact_two_name'),
+                'residance' => $request->input('residance'),
             ]);
             return response()->json(['message' => 'Employee updated successfully'], 200);
         } else {

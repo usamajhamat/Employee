@@ -36,71 +36,92 @@
 
                     <!-- Personal Information Section -->
                     <div class="border-b border-gray-200 pb-6">
-                        <h2 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                            <User class="h-5 w-5 text-teal-600 mr-2" />
+                        <h2
+                            class="text-lg font-medium text-gray-900 mb-4 flex items-center"
+                        >
+                            <User class="h-5 w-5 text-teal-600 mr-2"/>
                             Personal Information
                         </h2>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div
+                            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                        >
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
-                                    Full Name <span class="text-red-500">*</span>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="name"
+                                >
+                                    Full Name
+                                    <span class="text-red-500">*</span>
                                 </label>
                                 <input
                                     id="name"
                                     v-model="form.name"
-                                    type="text"
-                                    required
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter full name"
+                                    required
+                                    type="text"
                                     @input="sanitizeInput('name')"
                                 />
                             </div>
 
                             <div>
-                                <label for="candidate_id" class="block text-sm font-medium text-gray-700 mb-1">
-                                    Candidate ID <span class="text-red-500">*</span>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="candidate_id"
+                                >
+                                    Candidate ID
+                                    <span class="text-red-500">*</span>
                                 </label>
                                 <input
                                     id="candidate_id"
                                     v-model="form.candidate_id"
-                                    type="text"
-                                    required
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter candidate ID"
+                                    required
+                                    type="text"
                                     @input="sanitizeInput('candidate_id')"
                                 />
                             </div>
 
                             <div>
-                                <label for="ic_number" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="ic_number"
+                                >
                                     IC Number
                                 </label>
                                 <input
                                     id="ic_number"
                                     v-model="form.ic_number"
-                                    type="text"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter IC number"
+                                    type="text"
                                     @input="sanitizeInput('ic_number')"
                                 />
                             </div>
 
                             <div>
-                                <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="dob"
+                                >
                                     Date of Birth
                                 </label>
                                 <input
                                     id="dob"
                                     v-model="form.dob"
-                                    type="date"
-                                    max="2007-05-25"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    max="2007-05-25"
+                                    type="date"
                                 />
                             </div>
 
                             <div>
-                                <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="gender"
+                                >
                                     Gender
                                 </label>
                                 <select
@@ -115,15 +136,18 @@
                             </div>
 
                             <div>
-                                <label for="religion" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="religion"
+                                >
                                     Religion
                                 </label>
                                 <input
                                     id="religion"
                                     v-model="form.religion"
-                                    type="text"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter religion"
+                                    type="text"
                                     @input="sanitizeInput('religion')"
                                 />
                             </div>
@@ -132,44 +156,110 @@
 
                     <!-- Contact Information Section -->
                     <div class="border-b border-gray-200 pb-6">
-                        <h2 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                            <Phone class="h-5 w-5 text-teal-600 mr-2" />
+                        <h2
+                            class="text-lg font-medium text-gray-900 mb-4 flex items-center"
+                        >
+                            <Phone class="h-5 w-5 text-teal-600 mr-2"/>
                             Contact Information
                         </h2>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+
                             <div>
-                                <label for="contact_number" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label class="block text-sm font-medium text-gray-700 mb-1" for="contact_name">
+                                    Contact Name
+                                </label>
+                                <input
+                                    id="contact_name"
+                                    v-model="form.contact_name"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    placeholder="Enter contact name"
+                                    type="text"
+                                    @input="sanitizeInput('contact_name')"
+                                />
+                            </div>
+
+                            <!-- Contact Number: Keep pattern -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1" for="contact_number">
                                     Contact Number
                                 </label>
                                 <input
                                     id="contact_number"
                                     v-model="form.contact_number"
-                                    type="tel"
-                                    pattern="[0-9]{10,11}"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    pattern="[0-9]{10,11}"
                                     placeholder="Enter contact number"
+                                    type="tel"
                                     @input="sanitizeInput('contact_number')"
                                 />
                             </div>
 
+                            <!--Emergency Contact-->
+
                             <div>
-                                <label for="emergency_contact" class="block text-sm font-medium text-gray-700 mb-1">
-                                    Emergency Contact
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Emergency Contact Name
                                 </label>
                                 <input
-                                    id="emergency_contact"
-                                    v-model="form.emergency_contact"
-                                    type="tel"
-                                    pattern="[0-9]{10,11}"
+                                    id="emergency_contact_name"
+                                    v-model="form.emergency_contact_name"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                    placeholder="Enter emergency contact"
-                                    @input="sanitizeInput('emergency_contact')"
+                                    placeholder="Enter emergency contact name"
+                                    type="tel"
+                                    @input="sanitizeInput('emergency_contact_name')"
                                 />
                             </div>
 
                             <div>
-                                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Emergency Contact Number
+                                </label>
+                                <input
+                                    id="emergency_contact"
+                                    v-model="form.emergency_contact"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    pattern="[0-9]{10,11}"
+                                    placeholder="Enter emergency contact"
+                                    type="tel"
+                                    @input="sanitizeInput('emergency_contact')"
+                                />
+                            </div>
+
+                            <!--Emergency Contact 2-->
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Emergency Contact Name
+                                </label>
+                                <input
+                                    id="emergency_contact_two_name"
+                                    v-model="form.emergency_contact_two_name"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    placeholder="Enter emergency contact name"
+                                    type="tel"
+                                    @input="sanitizeInput('emergency_contact_two_name')"
+                                />
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Emergency Contact Number
+                                </label>
+                                <input
+                                    id="emergency_contact_two"
+                                    v-model="form.emergency_contact_two"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    pattern="[0-9]{10,11}"
+                                    placeholder="Enter emergency contact"
+                                    type="tel"
+                                    @input="sanitizeInput('emergency_contact_two')"
+                                />
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
                                     State
                                 </label>
                                 <select
@@ -178,22 +268,29 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 >
                                     <option value="">Select State</option>
-                                    <option v-for="state in stateList" :key="state.id" :value="state.name">
+                                    <option
+                                        v-for="state in stateList"
+                                        :key="state.id"
+                                        :value="state.name"
+                                    >
                                         {{ state.name }}
                                     </option>
                                 </select>
                             </div>
 
                             <div class="md:col-span-2">
-                                <label for="address" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="address"
+                                >
                                     Address
                                 </label>
                                 <textarea
                                     id="address"
                                     v-model="form.address"
-                                    rows="3"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter full address"
+                                    rows="3"
                                     @input="sanitizeInput('address')"
                                 ></textarea>
                             </div>
@@ -202,14 +299,21 @@
 
                     <!-- Company Information Section -->
                     <div class="border-b border-gray-200 pb-6">
-                        <h2 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                            <Building2 class="h-5 w-5 text-teal-600 mr-2" />
+                        <h2
+                            class="text-lg font-medium text-gray-900 mb-4 flex items-center"
+                        >
+                            <Building2 class="h-5 w-5 text-teal-600 mr-2"/>
                             Company Information
                         </h2>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div
+                            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                        >
                             <div>
-                                <label for="company" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="company"
+                                >
                                     Company
                                 </label>
                                 <select
@@ -218,14 +322,21 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 >
                                     <option value="">Select Company</option>
-                                    <option :value="company.company_name" v-for="company in companiesData" :key="company.id">
+                                    <option
+                                        v-for="company in companiesData?.data"
+                                        :key="company.id"
+                                        :value="company.company_name"
+                                    >
                                         {{ company.company_name }}
                                     </option>
                                 </select>
                             </div>
 
                             <div>
-                                <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="status"
+                                >
                                     Status
                                 </label>
                                 <select
@@ -234,35 +345,43 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 >
                                     <option value="">Select Status</option>
-                                    <option v-for="status in statusList" :key="status.id" :value="status.name">
+                                    <option
+                                        v-for="status in statusList"
+                                        :key="status.id"
+                                        :value="status.name"
+                                    >
                                         {{ status.name }}
                                     </option>
                                 </select>
                             </div>
 
                             <div>
-                                <label for="interview_date" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1">
                                     Interview Date
                                 </label>
                                 <input
                                     id="interview_date"
                                     v-model="form.interview_date"
-                                    type="date"
-                                    max="2025-05-25"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    max="2025-05-25"
+                                    type="date"
                                 />
                             </div>
 
                             <div>
-                                <label for="join_company" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="join_company"
+                                >
                                     Join Company Date
                                 </label>
                                 <input
                                     id="join_company"
                                     v-model="form.join_company"
-                                    type="date"
-                                    max="2025-05-25"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    max="2025-05-25"
+                                    type="date"
                                 />
                             </div>
                         </div>
@@ -271,21 +390,40 @@
                     <!-- Financial Information Section -->
                     <div class="border-b border-gray-200 pb-6">
                         <h2 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                            <CreditCard class="h-5 w-5 text-teal-600 mr-2" />
+                            <CreditCard class="h-5 w-5 text-teal-600 mr-2"/>
                             Financial Information
                         </h2>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="bank_account" class="block text-sm font-medium text-gray-700 mb-1">
+                        <!-- Flex container for State and Bank Account Number -->
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <!-- State Select -->
+                            <div class="w-full md:w-1/3">
+                                <label class="block text-sm font-medium text-gray-700 mb-1" for="state">
+                                    Bank
+                                </label>
+                                <select
+                                    id="bank_name"
+                                    v-model="form.bank_name"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                >
+                                    <option value="">Select Bank</option>
+                                    <option v-for="state in bankList" :key="state.id" :value="state.name">
+                                        {{ state.name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <!-- Bank Account Input -->
+                            <div class="w-full md:w-1/2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1" for="bank_account">
                                     Bank Account Number
                                 </label>
                                 <input
                                     id="bank_account"
                                     v-model="form.bank_account"
-                                    type="text"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter bank account number"
+                                    type="text"
                                     @input="sanitizeInput('bank_account')"
                                 />
                             </div>
@@ -294,14 +432,16 @@
 
                     <!-- Accommodation Section -->
                     <div class="pb-6">
-                        <h2 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                            <Home class="h-5 w-5 text-teal-600 mr-2" />
+                        <h2
+                            class="text-lg font-medium text-gray-900 mb-4 flex items-center"
+                        >
+                            <Home class="h-5 w-5 text-teal-600 mr-2"/>
                             Accommodation
                         </h2>
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label class="block text-sm font-medium text-gray-700 mb-1" for="state">
                                     State
                                 </label>
                                 <select
@@ -316,28 +456,34 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="join_accommodation" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="join_accommodation"
+                                >
                                     Join Accommodation Date
                                 </label>
                                 <input
                                     id="join_accommodation"
                                     v-model="form.join_accommodation"
-                                    type="date"
-                                    max="2025-05-25"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    max="2025-05-25"
+                                    type="date"
                                 />
                             </div>
 
                             <div>
-                                <label for="exit_accommodation" class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="exit_accommodation"
+                                >
                                     Exit Accommodation Date
                                 </label>
                                 <input
                                     id="exit_accommodation"
                                     v-model="form.exit_accommodation"
-                                    type="date"
-                                    max="2025-05-25"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    max="2025-05-25"
+                                    type="date"
                                 />
                             </div>
                         </div>
@@ -471,7 +617,7 @@ const statusList = [
 const residanceList = [
     { id: "hostel", name: "Hostel" },
     { id: "walk_in", name: "Walk In" },
-    
+
 ];
 
 const stateList = [
@@ -497,6 +643,7 @@ const stateList = [
 const form = ref({
     company: "",
     candidate_id: "",
+    contact_name: "",
     contact_number: "",
     name: "",
     ic_number: "",
@@ -507,13 +654,41 @@ const form = ref({
     state: "",
     address: "",
     bank_account: "",
+    bank_name: "",
+    emergency_contact_name: "",
     emergency_contact: "",
+    emergency_contact_two: "",
+    emergency_contact_two_name: "",
     join_accommodation: "",
     exit_accommodation: "",
     join_company: "",
     status: "",
     residance: "",
 });
+
+const bankList = [
+    {id: "Maybank", name: "Maybank"},
+    {id: "CIMB", name: "CIMB"},
+    {id: "Public_Bank", name: "Public Bank"},
+    {id: "RHB", name: "RHB"},
+    {id: "Hong_Leong_Bank", name: "Hong Leong Bank"},
+    {id: "AmBank", name: "AmBank"},
+    {id: "UOB Malaysia", name: "UOB Malaysia"},
+    {id: "Bank_Rakyat", name: "Bank Rakyat"},
+    {id: "OCBC_Malaysia", name: "OCBC Malaysia"},
+    {id: "HSBC_Malaysia", name: "HSBC Malaysia"},
+    {id: "Bank_Islam", name: "Bank Islam"},
+    {id: "Affin_Bank", name: "Affin Bank"},
+    {id: "Alliance_Bank", name: "Alliance Bank"},
+    {id: "Standard-Chartered_Malaysia", name: "Standard Chartered Malaysia"},
+    {id: "MBSB_Bank", name: "MBSB Bank"},
+    {id: "Citibank_Malaysia", name: "Citibank Malaysia"},
+    {id: "BSN", name: "BSN"},
+    {id: "Bank_Muamalat", name: "Bank Muamalat"},
+    {id: "Agrobank", name: "Agrobank"},
+    {id: "Al_Rajhi_Bank_Malaysia", name: "Al Rajhi Bank Malaysia"},
+    {id: "Bank_Pertama", name: "Co-op Bank Pertama"}
+];
 
 function getEmployeeDetails() {
     isLoading.value = true;
@@ -525,6 +700,7 @@ function getEmployeeDetails() {
             form.value = {
                 company: employeeDetails.value.company || "",
                 candidate_id: employeeDetails.value.candidate_id || "",
+                contact_name: employeeDetails.value.contact_name || "",
                 contact_number: employeeDetails.value.contact_number || "",
                 name: employeeDetails.value.name || "",
                 ic_number: employeeDetails.value.ic_number || "",
@@ -534,7 +710,11 @@ function getEmployeeDetails() {
                 religion: employeeDetails.value.religion || "",
                 state: employeeDetails.value.state || "",
                 address: employeeDetails.value.address || "",
+                bank_name: employeeDetails.value.bank_name || "",
                 bank_account: employeeDetails.value.bank_account || "",
+                emergency_contact_name: employeeDetails.value.emergency_contact_name || "",
+                emergency_contact_two: employeeDetails.value.emergency_contact_two || "",
+                emergency_contact_two_name: employeeDetails.value.emergency_contact_two_name || "",
                 emergency_contact: employeeDetails.value.emergency_contact || "",
                 join_accommodation: employeeDetails.value.join_accommodation || "",
                 exit_accommodation: employeeDetails.value.exit_accommodation || "",
@@ -618,6 +798,11 @@ const handleSubmit = async () => {
             join_company: form.value.join_company,
             status: form.value.status,
             residance: form.value.residance,
+            bank_name: form.value.bank_name,
+            emergency_contact_name: form.value.emergency_contact_name,
+            emergency_contact_two: form.value.emergency_contact_two,
+            emergency_contact_two_name: form.value.emergency_contact_two_name,
+            contact_name: form.value.contact_name
         };
 
         await store.dispatch(`employee/${UPDATE_EMPLOYEE_DATA}`, employeeData);
