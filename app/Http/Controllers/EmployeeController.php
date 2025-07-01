@@ -33,8 +33,11 @@ class EmployeeController extends Controller
             'join_accommodation' => $request->input('join_accommodation'),
             'exit_accommodation' => $request->input('exit_accommodation'),
             'join_company' => $request->input('join_company'),
+            'exit_company' => $request->input('exit_company'),
             'status' => $request->input('status'),
             'residance' => $request->input('residance'),
+            'room_no' => $request->input('room_number'),
+            'bed_no' => $request->input('bed_number'),
         ]);
 
         return response()->json([
@@ -128,6 +131,7 @@ class EmployeeController extends Controller
                 'join_accommodation' => $request->input('join_accommodation'),
                 'exit_accommodation' => $request->input('exit_accommodation'),
                 'join_company' => $request->input('join_company'),
+                "exit_company" => $request->input('exit_company'),
                 'status' => $request->input('status'),
                 'contact_name' => $request->input('contact_name'),
                 'bank_name' => $request->input('bank_name'),

@@ -384,6 +384,21 @@
                                     type="date"
                                 />
                             </div>
+
+                            <!--Exit Company-->
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Exit Company Date
+                                </label>
+                                <input
+                                    id="exit_company"
+                                    v-model="form.exit_company"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    max="2025-05-25"
+                                    type="date"
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -662,6 +677,7 @@ const form = ref({
     join_accommodation: "",
     exit_accommodation: "",
     join_company: "",
+    exit_company: "",
     status: "",
     residance: "",
 });
@@ -719,6 +735,7 @@ function getEmployeeDetails() {
                 join_accommodation: employeeDetails.value.join_accommodation || "",
                 exit_accommodation: employeeDetails.value.exit_accommodation || "",
                 join_company: employeeDetails.value.join_company || "",
+                exit_company: employeeDetails.value.exit_company || "",
                 status: employeeDetails.value.status || "",
                 residance: employeeDetails.value.residance || "",
             };
@@ -796,6 +813,7 @@ const handleSubmit = async () => {
             join_accommodation: form.value.join_accommodation,
             exit_accommodation: form.value.exit_accommodation,
             join_company: form.value.join_company,
+            exit_company: form.value.exit_company,
             status: form.value.status,
             residance: form.value.residance,
             bank_name: form.value.bank_name,

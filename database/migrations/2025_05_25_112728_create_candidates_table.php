@@ -34,8 +34,11 @@ return new class extends Migration
             $table->string('join_accommodation')->nullable();
             $table->string('exit_accommodation')->nullable();
             $table->string('join_company')->nullable();
+            $table->string('exit_company')->nullable();
             $table->string('status')->nullable();
             $table->string('residance')->nullable();
+            $table->string('room_no')->nullable();
+            $table->string('bed_no')->nullable();
             $table->timestamps();
         });
     }
