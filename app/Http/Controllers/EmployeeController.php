@@ -47,42 +47,43 @@ class EmployeeController extends Controller
 
     }
 
-   public function show(Request $request)
-{
-    // Get filter values from the request
-    $perPage = $request->input('per_page', 50); // Default to 50 if not provided
-    $search = $request->input('search');
-    $company = $request->input('company');
-    $status = $request->input('status');
+    public function show(Request $request)
+    {
+        Log::info($request);
+        // Get filter values from the request
+        $perPage = $request->input('per_page', 50); // Default to 50 if not provided
+        $search = $request->input('search');
+        $company = $request->input('company');
+        $status = $request->input('status');
 
-    // Build query with filters
-    $query = Candidate::query();
+        // Build query with filters
+        $query = Candidate::query();
 
-    if ($search) {
-        $query->where(function ($q) use ($search) {
-            $q->where('name', 'like', "%{$search}%");
-            //   ->orWhere('last_name', 'like', "%{$search}%")
-            //   ->orWhere('email', 'like', "%{$search}%");
-        });
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+                //   ->orWhere('last_name', 'like', "%{$search}%")
+                //   ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        if ($company) {
+            $query->where('company', $company);
+        }
+
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        // Paginate
+        $employees = $query->paginate($perPage);
+
+        // Log the filters and result count
+        Log::info('Retrieved employees with filters: ', $request->all());
+        Log::info('Total matching employees: ' . $employees->total());
+
+        return response()->json($employees);
     }
-
-    if ($company) {
-        $query->where('company', $company);
-    }
-
-    if ($status) {
-        $query->where('status', $status);
-    }
-
-    // Paginate
-    $employees = $query->paginate($perPage);
-
-    // Log the filters and result count
-    Log::info('Retrieved employees with filters: ', $request->all());
-    Log::info('Total matching employees: ' . $employees->total());
-
-    return response()->json($employees);
-}
 
 
 
@@ -139,6 +140,8 @@ class EmployeeController extends Controller
                 'emergency_contact_two' => $request->input('emergency_contact_two'),
                 'emergency_contact_two_name' => $request->input('emergency_contact_two_name'),
                 'residance' => $request->input('residance'),
+                'room_no' => $request->input('room_number'),
+                'bed_no' => $request->input('bed_number'),
             ]);
             return response()->json(['message' => 'Employee updated successfully'], 200);
         } else {

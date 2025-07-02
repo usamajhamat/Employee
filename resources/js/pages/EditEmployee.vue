@@ -3,8 +3,12 @@
     <div class="min-h-screen bg-gray-50 py-8">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
-                <div class="bg-gradient-to-r from-teal-600 to-cyan-600 px-6 py-4 rounded-t-lg">
+            <div
+                class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6"
+            >
+                <div
+                    class="bg-gradient-to-r from-teal-600 to-cyan-600 px-6 py-4 rounded-t-lg"
+                >
                     <div class="flex items-center">
                         <UserPlus class="h-6 w-6 text-white mr-3" />
                         <div>
@@ -23,10 +27,16 @@
             <div class="bg-white rounded-lg shadow-sm border border-gray-200">
                 <form @submit.prevent="handleSubmit" class="p-6 space-y-6">
                     <!-- Error Display -->
-                    <div v-if="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+                    <div
+                        v-if="error"
+                        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6"
+                    >
                         {{ error }}
                     </div>
-                    <div v-if="formErrors.length" class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg mb-6">
+                    <div
+                        v-if="formErrors.length"
+                        class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg mb-6"
+                    >
                         <ul class="list-disc pl-5">
                             <li v-for="error in formErrors" :key="error">
                                 {{ error }}
@@ -39,10 +49,9 @@
                         <h2
                             class="text-lg font-medium text-gray-900 mb-4 flex items-center"
                         >
-                            <User class="h-5 w-5 text-teal-600 mr-2"/>
+                            <User class="h-5 w-5 text-teal-600 mr-2" />
                             Personal Information
                         </h2>
-
                         <div
                             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
                         >
@@ -64,7 +73,6 @@
                                     @input="sanitizeInput('name')"
                                 />
                             </div>
-
                             <div>
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-1"
@@ -83,14 +91,12 @@
                                     @input="sanitizeInput('candidate_id')"
                                 />
                             </div>
-
                             <div>
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-1"
                                     for="ic_number"
+                                    >IC Number</label
                                 >
-                                    IC Number
-                                </label>
                                 <input
                                     id="ic_number"
                                     v-model="form.ic_number"
@@ -100,14 +106,12 @@
                                     @input="sanitizeInput('ic_number')"
                                 />
                             </div>
-
                             <div>
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-1"
                                     for="dob"
+                                    >Date of Birth</label
                                 >
-                                    Date of Birth
-                                </label>
                                 <input
                                     id="dob"
                                     v-model="form.dob"
@@ -116,14 +120,12 @@
                                     type="date"
                                 />
                             </div>
-
                             <div>
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-1"
                                     for="gender"
+                                    >Gender</label
                                 >
-                                    Gender
-                                </label>
                                 <select
                                     id="gender"
                                     v-model="form.gender"
@@ -134,14 +136,12 @@
                                     <option value="Female">Female</option>
                                 </select>
                             </div>
-
                             <div>
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-1"
                                     for="religion"
+                                    >Religion</label
                                 >
-                                    Religion
-                                </label>
                                 <input
                                     id="religion"
                                     v-model="form.religion"
@@ -159,15 +159,15 @@
                         <h2
                             class="text-lg font-medium text-gray-900 mb-4 flex items-center"
                         >
-                            <Phone class="h-5 w-5 text-teal-600 mr-2"/>
+                            <Phone class="h-5 w-5 text-teal-600 mr-2" />
                             Contact Information
                         </h2>
-
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1" for="contact_name">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="contact_name"
+                                >
                                     Contact Name
                                 </label>
                                 <input
@@ -179,10 +179,11 @@
                                     @input="sanitizeInput('contact_name')"
                                 />
                             </div>
-
-                            <!-- Contact Number: Keep pattern -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1" for="contact_number">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="contact_number"
+                                >
                                     Contact Number
                                 </label>
                                 <input
@@ -195,11 +196,10 @@
                                     @input="sanitizeInput('contact_number')"
                                 />
                             </div>
-
-                            <!--Emergency Contact-->
-
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                >
                                     Emergency Contact Name
                                 </label>
                                 <input
@@ -207,13 +207,16 @@
                                     v-model="form.emergency_contact_name"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter emergency contact name"
-                                    type="tel"
-                                    @input="sanitizeInput('emergency_contact_name')"
+                                    type="text"
+                                    @input="
+                                        sanitizeInput('emergency_contact_name')
+                                    "
                                 />
                             </div>
-
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                >
                                     Emergency Contact Number
                                 </label>
                                 <input
@@ -226,26 +229,30 @@
                                     @input="sanitizeInput('emergency_contact')"
                                 />
                             </div>
-
-                            <!--Emergency Contact 2-->
-
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
-                                    Emergency Contact Name
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                >
+                                    Emergency Contact Name 2
                                 </label>
                                 <input
                                     id="emergency_contact_two_name"
                                     v-model="form.emergency_contact_two_name"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter emergency contact name"
-                                    type="tel"
-                                    @input="sanitizeInput('emergency_contact_two_name')"
+                                    type="text"
+                                    @input="
+                                        sanitizeInput(
+                                            'emergency_contact_two_name'
+                                        )
+                                    "
                                 />
                             </div>
-
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
-                                    Emergency Contact Number
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                >
+                                    Emergency Contact Number 2
                                 </label>
                                 <input
                                     id="emergency_contact_two"
@@ -254,15 +261,38 @@
                                     pattern="[0-9]{10,11}"
                                     placeholder="Enter emergency contact"
                                     type="tel"
-                                    @input="sanitizeInput('emergency_contact_two')"
+                                    @input="
+                                        sanitizeInput('emergency_contact_two')
+                                    "
                                 />
                             </div>
 
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                             <div>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                >
                                     State
                                 </label>
-                                <select
+                                <input
+                                    id="state"
+                                    v-model="form.state"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    placeholder="Enter State"
+                                    type="text"
+                                    @input="
+                                        sanitizeInput(
+                                            'state'
+                                        )
+                                    "
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                >
+                                    State
+                                </label>
+                                <!-- <select
                                     id="state"
                                     v-model="form.state"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
@@ -275,9 +305,8 @@
                                     >
                                         {{ state.name }}
                                     </option>
-                                </select>
+                                </select> -->
                             </div>
-
                             <div class="md:col-span-2">
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-1"
@@ -302,10 +331,9 @@
                         <h2
                             class="text-lg font-medium text-gray-900 mb-4 flex items-center"
                         >
-                            <Building2 class="h-5 w-5 text-teal-600 mr-2"/>
+                            <Building2 class="h-5 w-5 text-teal-600 mr-2" />
                             Company Information
                         </h2>
-
                         <div
                             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
                         >
@@ -331,7 +359,6 @@
                                     </option>
                                 </select>
                             </div>
-
                             <div>
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-1"
@@ -354,21 +381,21 @@
                                     </option>
                                 </select>
                             </div>
-
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700 mb-1">
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="interview_date"
+                                >
                                     Interview Date
                                 </label>
                                 <input
                                     id="interview_date"
                                     v-model="form.interview_date"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                    max="2025-05-25"
+                                    max="2025-07-02"
                                     type="date"
                                 />
                             </div>
-
                             <div>
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-1"
@@ -380,22 +407,22 @@
                                     id="join_company"
                                     v-model="form.join_company"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                    max="2025-05-25"
+                                    max="2025-07-02"
                                     type="date"
                                 />
                             </div>
-
-                            <!--Exit Company-->
-
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="exit_company"
+                                >
                                     Exit Company Date
                                 </label>
                                 <input
                                     id="exit_company"
                                     v-model="form.exit_company"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                    max="2025-05-25"
+                                    max="2025-07-02"
                                     type="date"
                                 />
                             </div>
@@ -404,16 +431,18 @@
 
                     <!-- Financial Information Section -->
                     <div class="border-b border-gray-200 pb-6">
-                        <h2 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                            <CreditCard class="h-5 w-5 text-teal-600 mr-2"/>
+                        <h2
+                            class="text-lg font-medium text-gray-900 mb-4 flex items-center"
+                        >
+                            <CreditCard class="h-5 w-5 text-teal-600 mr-2" />
                             Financial Information
                         </h2>
-
-                        <!-- Flex container for State and Bank Account Number -->
                         <div class="flex flex-col md:flex-row gap-4">
-                            <!-- State Select -->
                             <div class="w-full md:w-1/3">
-                                <label class="block text-sm font-medium text-gray-700 mb-1" for="state">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="bank_name"
+                                >
                                     Bank
                                 </label>
                                 <select
@@ -422,15 +451,20 @@
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 >
                                     <option value="">Select Bank</option>
-                                    <option v-for="state in bankList" :key="state.id" :value="state.name">
+                                    <option
+                                        v-for="state in bankList"
+                                        :key="state.id"
+                                        :value="state.name"
+                                    >
                                         {{ state.name }}
                                     </option>
                                 </select>
                             </div>
-
-                            <!-- Bank Account Input -->
                             <div class="w-full md:w-1/2">
-                                <label class="block text-sm font-medium text-gray-700 mb-1" for="bank_account">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="bank_account"
+                                >
                                     Bank Account Number
                                 </label>
                                 <input
@@ -450,22 +484,28 @@
                         <h2
                             class="text-lg font-medium text-gray-900 mb-4 flex items-center"
                         >
-                            <Home class="h-5 w-5 text-teal-600 mr-2"/>
+                            <Home class="h-5 w-5 text-teal-600 mr-2" />
                             Accommodation
                         </h2>
-
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1" for="state">
-                                    State
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="residance"
+                                >
+                                    Residence
                                 </label>
                                 <select
-                                    id="state"
+                                    id="residance"
                                     v-model="form.residance"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                 >
-                                    <option value="">Select Residance</option>
-                                    <option v-for="state in residanceList" :key="state.id" :value="state.name">
+                                    <option value="">Select Residence</option>
+                                    <option
+                                        v-for="state in residanceList"
+                                        :key="state.id"
+                                        :value="state.name"
+                                    >
                                         {{ state.name }}
                                     </option>
                                 </select>
@@ -481,11 +521,10 @@
                                     id="join_accommodation"
                                     v-model="form.join_accommodation"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                    max="2025-05-25"
+                                    max="2025-07-02"
                                     type="date"
                                 />
                             </div>
-
                             <div>
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-1"
@@ -497,30 +536,75 @@
                                     id="exit_accommodation"
                                     v-model="form.exit_accommodation"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                    max="2025-05-25"
+                                    max="2025-07-02"
                                     type="date"
+                                />
+                            </div>
+                            <div v-if="form.residance === 'Hostel'">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="room_number"
+                                >
+                                    Room Number
+                                </label>
+                                <input
+                                    id="room_number"
+                                    v-model="form.room_number"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    placeholder="Enter room number"
+                                    type="text"
+                                    @input="sanitizeInput('room_number')"
+                                />
+                            </div>
+                            <div v-if="form.residance === 'Hostel'">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="bed_number"
+                                >
+                                    Bed Number
+                                </label>
+                                <input
+                                    id="bed_number"
+                                    v-model="form.bed_number"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    placeholder="Enter bed number"
+                                    type="text"
+                                    @input="sanitizeInput('bed_number')"
                                 />
                             </div>
                         </div>
                     </div>
 
                     <!-- Form Actions -->
-                    <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+                    <div
+                        class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200"
+                    >
                         <button
                             type="submit"
-                            :disabled="isSubmitting || !form.name.trim() || !form.candidate_id.trim()"
+                            :disabled="
+                                isSubmitting ||
+                                !form.name.trim() ||
+                                !form.candidate_id.trim()
+                            "
                             class="flex-1 sm:flex-none px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-medium rounded-lg shadow-sm hover:from-teal-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            <span v-if="!isSubmitting" class="flex items-center justify-center">
+                            <span
+                                v-if="!isSubmitting"
+                                class="flex items-center justify-center"
+                            >
                                 <Save class="h-4 w-4 mr-2" />
                                 Update Employee
                             </span>
-                            <span v-else class="flex items-center justify-center">
-                                <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                            <span
+                                v-else
+                                class="flex items-center justify-center"
+                            >
+                                <div
+                                    class="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"
+                                ></div>
                                 Updating Employee...
                             </span>
                         </button>
-
                         <button
                             type="button"
                             @click="resetForm"
@@ -531,7 +615,6 @@
                                 Reset Form
                             </span>
                         </button>
-
                         <router-link
                             :to="{ name: 'ListEmployees' }"
                             class="flex-1 sm:flex-none px-6 py-3 bg-white text-gray-700 font-medium rounded-lg shadow-sm border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-200 text-center"
@@ -546,17 +629,25 @@
             </div>
 
             <!-- Preview Card -->
-            <div v-if="form.name.trim()" class="mt-6 bg-white rounded-lg shadow-sm border border-gray-200">
+            <div
+                v-if="form.name.trim()"
+                class="mt-6 bg-white rounded-lg shadow-sm border border-gray-200"
+            >
                 <div class="p-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+                    <h3
+                        class="text-lg font-medium text-gray-900 mb-4 flex items-center"
+                    >
                         <Eye class="h-5 w-5 text-teal-600 mr-2" />
                         Preview
                     </h3>
-
-                    <div class="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-lg p-4 border border-teal-200">
+                    <div
+                        class="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-lg p-4 border border-teal-200"
+                    >
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
-                                <div class="h-12 w-12 rounded-lg bg-gradient-to-r from-teal-500 to-cyan-500 flex items-center justify-center">
+                                <div
+                                    class="h-12 w-12 rounded-lg bg-gradient-to-r from-teal-500 to-cyan-500 flex items-center justify-center"
+                                >
                                     <User class="h-6 w-6 text-white" />
                                 </div>
                             </div>
@@ -564,18 +655,30 @@
                                 <h4 class="text-lg font-semibold text-gray-900">
                                     {{ form.name }}
                                 </h4>
-                                <p v-if="form.company" class="mt-1 text-sm text-gray-600">
+                                <p
+                                    v-if="form.company"
+                                    class="mt-1 text-sm text-gray-600"
+                                >
                                     Company: {{ form.company }}
                                 </p>
-                                <p v-if="form.candidate_id" class="mt-1 text-sm text-gray-600">
+                                <p
+                                    v-if="form.candidate_id"
+                                    class="mt-1 text-sm text-gray-600"
+                                >
                                     Candidate ID: {{ form.candidate_id }}
                                 </p>
-                                <p v-if="form.status" class="mt-1 text-sm text-gray-600">
+                                <p
+                                    v-if="form.status"
+                                    class="mt-1 text-sm text-gray-600"
+                                >
                                     Status: {{ form.status }}
                                 </p>
-                                <div class="mt-3 flex items-center text-xs text-gray-500">
+                                <div
+                                    class="mt-3 flex items-center text-xs text-gray-500"
+                                >
                                     <Calendar class="h-3 w-3 mr-1" />
-                                    Updated: {{ new Date().toLocaleDateString() }}
+                                    Updated:
+                                    {{ new Date().toLocaleDateString() }}
                                 </div>
                             </div>
                         </div>
@@ -620,21 +723,44 @@ const isLoading = ref(false);
 
 const employeeId = route.query.id;
 const companiesData = computed(() => store.getters["company/companyData"]);
-const employeeDetails = computed(() => store.getters["employee/employeeDetails"]);
+const employeeDetails = computed(
+    () => store.getters["employee/employeeDetails"]
+);
 const statusList = [
     { id: "active", name: "Active" },
     { id: "absconded", name: "Absconded" },
     { id: "resigned", name: "Resigned" },
     { id: "rejected", name: "Rejected" },
-    { id: "kiv ", name: "KIV " },
+    { id: "kiv", name: "KIV" },
+    { id: "terminated", name: "Terminated" },
 ];
-
 const residanceList = [
     { id: "hostel", name: "Hostel" },
     { id: "walk_in", name: "Walk In" },
-
 ];
-
+const bankList = [
+    { id: "Maybank", name: "Maybank" },
+    { id: "CIMB", name: "CIMB" },
+    { id: "Public_Bank", name: "Public Bank" },
+    { id: "RHB", name: "RHB" },
+    { id: "Hong_Leong_Bank", name: "Hong Leong Bank" },
+    { id: "AmBank", name: "AmBank" },
+    { id: "UOB Malaysia", name: "UOB Malaysia" },
+    { id: "Bank_Rakyat", name: "Bank Rakyat" },
+    { id: "OCBC_Malaysia", name: "OCBC Malaysia" },
+    { id: "HSBC_Malaysia", name: "HSBC Malaysia" },
+    { id: "Bank_Islam", name: "Bank Islam" },
+    { id: "Affin_Bank", name: "Affin Bank" },
+    { id: "Alliance_Bank", name: "Alliance Bank" },
+    { id: "Standard-Chartered_Malaysia", name: "Standard Chartered Malaysia" },
+    { id: "MBSB_Bank", name: "MBSB Bank" },
+    { id: "Citibank_Malaysia", name: "Citibank Malaysia" },
+    { id: "BSN", name: "BSN" },
+    { id: "Bank_Muamalat", name: "Bank Muamalat" },
+    { id: "Agrobank", name: "Agrobank" },
+    { id: "Al_Rajhi_Bank_Malaysia", name: "Al Rajhi Bank Malaysia" },
+    { id: "Bank_Pertama", name: "Co-op Bank Pertama" },
+];
 const stateList = [
     { id: "johor", name: "Johor" },
     { id: "kedah", name: "Kedah" },
@@ -651,10 +777,9 @@ const stateList = [
     { id: "sabah", name: "Sabah" },
     { id: "sarawak", name: "Sarawak" },
     { id: "selangor", name: "Selangor" },
-    { id: "terengganu", name: "Terengganu" }
+    { id: "terengganu", name: "Terengganu" },
 ];
 
-// Form data
 const form = ref({
     company: "",
     candidate_id: "",
@@ -680,75 +805,10 @@ const form = ref({
     exit_company: "",
     status: "",
     residance: "",
+    room_number: "",
+    bed_number: "",
 });
 
-const bankList = [
-    {id: "Maybank", name: "Maybank"},
-    {id: "CIMB", name: "CIMB"},
-    {id: "Public_Bank", name: "Public Bank"},
-    {id: "RHB", name: "RHB"},
-    {id: "Hong_Leong_Bank", name: "Hong Leong Bank"},
-    {id: "AmBank", name: "AmBank"},
-    {id: "UOB Malaysia", name: "UOB Malaysia"},
-    {id: "Bank_Rakyat", name: "Bank Rakyat"},
-    {id: "OCBC_Malaysia", name: "OCBC Malaysia"},
-    {id: "HSBC_Malaysia", name: "HSBC Malaysia"},
-    {id: "Bank_Islam", name: "Bank Islam"},
-    {id: "Affin_Bank", name: "Affin Bank"},
-    {id: "Alliance_Bank", name: "Alliance Bank"},
-    {id: "Standard-Chartered_Malaysia", name: "Standard Chartered Malaysia"},
-    {id: "MBSB_Bank", name: "MBSB Bank"},
-    {id: "Citibank_Malaysia", name: "Citibank Malaysia"},
-    {id: "BSN", name: "BSN"},
-    {id: "Bank_Muamalat", name: "Bank Muamalat"},
-    {id: "Agrobank", name: "Agrobank"},
-    {id: "Al_Rajhi_Bank_Malaysia", name: "Al Rajhi Bank Malaysia"},
-    {id: "Bank_Pertama", name: "Co-op Bank Pertama"}
-];
-
-function getEmployeeDetails() {
-    isLoading.value = true;
-    store
-        .dispatch("employee/" + FETCH_EMPLOYEE_DETAILS, {
-            employeeId: employeeId,
-        })
-        .then(() => {
-            form.value = {
-                company: employeeDetails.value.company || "",
-                candidate_id: employeeDetails.value.candidate_id || "",
-                contact_name: employeeDetails.value.contact_name || "",
-                contact_number: employeeDetails.value.contact_number || "",
-                name: employeeDetails.value.name || "",
-                ic_number: employeeDetails.value.ic_number || "",
-                dob: employeeDetails.value.dob || "",
-                gender: employeeDetails.value.gender || "",
-                interview_date: employeeDetails.value.interview_date || "",
-                religion: employeeDetails.value.religion || "",
-                state: employeeDetails.value.state || "",
-                address: employeeDetails.value.address || "",
-                bank_name: employeeDetails.value.bank_name || "",
-                bank_account: employeeDetails.value.bank_account || "",
-                emergency_contact_name: employeeDetails.value.emergency_contact_name || "",
-                emergency_contact_two: employeeDetails.value.emergency_contact_two || "",
-                emergency_contact_two_name: employeeDetails.value.emergency_contact_two_name || "",
-                emergency_contact: employeeDetails.value.emergency_contact || "",
-                join_accommodation: employeeDetails.value.join_accommodation || "",
-                exit_accommodation: employeeDetails.value.exit_accommodation || "",
-                join_company: employeeDetails.value.join_company || "",
-                exit_company: employeeDetails.value.exit_company || "",
-                status: employeeDetails.value.status || "",
-                residance: employeeDetails.value.residance || "",
-            };
-        })
-        .catch((err) => {
-            error.value = err.response?.data?.message || "Error fetching employee details.";
-        })
-        .finally(() => {
-            isLoading.value = false;
-        });
-}
-
-// Input sanitization
 const sanitizeInput = (field) => {
     const value = form.value[field];
     if (typeof value === "string") {
@@ -756,7 +816,6 @@ const sanitizeInput = (field) => {
     }
 };
 
-// Form validation
 const validateForm = () => {
     formErrors.value = [];
 
@@ -766,28 +825,57 @@ const validateForm = () => {
     if (!form.value.candidate_id.trim()) {
         formErrors.value.push("Candidate ID is required");
     }
-    if (form.value.contact_number && !/^[0-9]{10,11}$/.test(form.value.contact_number)) {
+    if (
+        form.value.contact_number &&
+        !/^[0-9]{10,11}$/.test(form.value.contact_number)
+    ) {
         formErrors.value.push("Contact number must be 10-11 digits");
+    }
+    if (
+        form.value.emergency_contact &&
+        !/^[0-9]{10,11}$/.test(form.value.emergency_contact)
+    ) {
+        formErrors.value.push("Emergency contact number must be 10-11 digits");
+    }
+    if (
+        form.value.emergency_contact_two &&
+        !/^[0-9]{10,11}$/.test(form.value.emergency_contact_two)
+    ) {
+        formErrors.value.push(
+            "Emergency contact number 2 must be 10-11 digits"
+        );
     }
     if (form.value.dob && new Date(form.value.dob) > new Date("2007-05-25")) {
         formErrors.value.push("Employee must be at least 18 years old");
     }
-    if (
-        form.value.join_accommodation &&
-        form.value.exit_accommodation &&
-        new Date(form.value.join_accommodation) > new Date(form.value.exit_accommodation)
-    ) {
-        formErrors.value.push("Join accommodation date must be before exit date");
+    if (form.value.join_accommodation && form.value.exit_accommodation) {
+        const joinDate = new Date(form.value.join_accommodation);
+        const exitDate = new Date(form.value.exit_accommodation);
+        if (joinDate > exitDate) {
+            formErrors.value.push(
+                "Join accommodation date must be before exit date"
+            );
+        }
+    }
+    if (form.value.residance === "Hostel") {
+        if (!form.value.room_number.trim()) {
+            formErrors.value.push(
+                "Room number is required for hostel accommodation"
+            );
+        }
+        if (!form.value.bed_number.trim()) {
+            formErrors.value.push(
+                "Bed number is required for hostel accommodation"
+            );
+        }
     }
 
     return formErrors.value.length === 0;
 };
 
-// Form submission
 const handleSubmit = async () => {
     isSubmitting.value = true;
     error.value = null;
-    formErrors.value = [];
 
     if (!validateForm()) {
         isSubmitting.value = false;
@@ -820,19 +908,22 @@ const handleSubmit = async () => {
             emergency_contact_name: form.value.emergency_contact_name,
             emergency_contact_two: form.value.emergency_contact_two,
             emergency_contact_two_name: form.value.emergency_contact_two_name,
-            contact_name: form.value.contact_name
+            contact_name: form.value.contact_name,
+            room_number: form.value.room_number,
+            bed_number: form.value.bed_number,
         };
 
         await store.dispatch(`employee/${UPDATE_EMPLOYEE_DATA}`, employeeData);
         router.push({ name: "ListEmployees" });
     } catch (err) {
-        error.value = err.response?.data?.message || "Error updating employee. Please try again.";
+        error.value =
+            err.response?.data?.message ||
+            "Error updating employee. Please try again.";
     } finally {
         isSubmitting.value = false;
     }
 };
 
-// Reset form
 const resetForm = () => {
     getEmployeeDetails();
     error.value = null;
@@ -842,9 +933,54 @@ const resetForm = () => {
 const loadCompanies = async () => {
     isLoading.value = true;
     try {
-        store.dispatch("company/" + FETCH_COMPANY);
+        await store.dispatch("company/" + FETCH_COMPANY);
     } catch (error) {
         console.error("Error loading companies:", error);
+    } finally {
+        isLoading.value = false;
+    }
+};
+
+const getEmployeeDetails = async () => {
+    isLoading.value = true;
+    try {
+        await store.dispatch("employee/" + FETCH_EMPLOYEE_DETAILS, {
+            employeeId: employeeId,
+        });
+        form.value = {
+            company: employeeDetails.value.company || "",
+            candidate_id: employeeDetails.value.candidate_id || "",
+            contact_name: employeeDetails.value.contact_name || "",
+            contact_number: employeeDetails.value.contact_number || "",
+            name: employeeDetails.value.name || "",
+            ic_number: employeeDetails.value.ic_number || "",
+            dob: employeeDetails.value.dob || "",
+            gender: employeeDetails.value.gender || "",
+            interview_date: employeeDetails.value.interview_date || "",
+            religion: employeeDetails.value.religion || "",
+            state: employeeDetails.value.state || "",
+            address: employeeDetails.value.address || "",
+            bank_name: employeeDetails.value.bank_name || "",
+            bank_account: employeeDetails.value.bank_account || "",
+            emergency_contact_name:
+                employeeDetails.value.emergency_contact_name || "",
+            emergency_contact_two:
+                employeeDetails.value.emergency_contact_two || "",
+            emergency_contact_two_name:
+                employeeDetails.value.emergency_contact_two_name || "",
+            emergency_contact: employeeDetails.value.emergency_contact || "",
+            join_accommodation: employeeDetails.value.join_accommodation || "",
+            exit_accommodation: employeeDetails.value.exit_accommodation || "",
+            join_company: employeeDetails.value.join_company || "",
+            exit_company: employeeDetails.value.exit_company || "",
+            status: employeeDetails.value.status || "",
+            residance: employeeDetails.value.residance || "",
+            room_number: employeeDetails.value.room_no || "",
+            bed_number: employeeDetails.value.bed_no || "",
+        };
+    } catch (err) {
+        error.value =
+            err.response?.data?.message || "Error fetching employee details.";
     } finally {
         isLoading.value = false;
     }
