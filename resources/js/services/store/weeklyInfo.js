@@ -24,8 +24,8 @@ const actions = {
     async [CREATE_WEEKLY_INFO](context, params) {
         context.commit(IS_LOADING);
         try {
-           const response = await apiService.saveWeeklyInfo(params);
-           context.commit(SET_WEEKLY_REPORTS, response.data);
+            const response = await apiService.saveWeeklyInfo(params);
+            context.commit(SET_WEEKLY_REPORTS, response.data);
         } catch (error) {
             context.commit(SET_API_ERROR, error);
             toast(error?.message || "Failed to create weekly info", {

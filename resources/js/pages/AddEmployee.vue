@@ -43,41 +43,108 @@
 
                     <!-- Personal Information Section -->
                     <div class="border-b border-gray-200 pb-6">
-                        <h2 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                            <User class="h-5 w-5 text-teal-600 mr-2"/> Personal Information
+                        <h2
+                            class="text-lg font-medium text-gray-900 mb-4 flex items-center"
+                        >
+                            <User class="h-5 w-5 text-teal-600 mr-2" /> Personal
+                            Information
                         </h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div
+                            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                        >
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1" for="name">
-                                    Full Name <span class="text-red-500">*</span>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="name"
+                                >
+                                    Full Name
+                                    <span class="text-red-500">*</span>
                                 </label>
-                                <input id="name" v-model="form.name" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200" placeholder="Enter full name" required type="text" @input="sanitizeInput('name')"/>
+                                <input
+                                    id="name"
+                                    v-model="form.name"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    placeholder="Enter full name"
+                                    required
+                                    type="text"
+                                    @input="sanitizeInput('name')"
+                                />
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1" for="candidate_id">
-                                    Candidate ID <span class="text-red-500">*</span>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="candidate_id"
+                                >
+                                    Candidate ID
                                 </label>
-                                <input id="candidate_id" v-model="form.candidate_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200" placeholder="Enter candidate ID" required type="text" @input="sanitizeInput('candidate_id')"/>
+                                <input
+                                    id="candidate_id"
+                                    v-model="form.candidate_id"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    placeholder="Enter candidate ID"
+                                    type="text"
+                                    @input="sanitizeInput('candidate_id')"
+                                />
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1" for="ic_number">IC Number</label>
-                                <input id="ic_number" v-model="form.ic_number" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200" placeholder="Enter IC number" type="text" @input="sanitizeInput('ic_number')"/>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="ic_number"
+                                    >IC Number</label
+                                >
+                                <input
+                                    id="ic_number"
+                                    v-model="form.ic_number"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    placeholder="Enter IC number"
+                                    type="text"
+                                    @input="sanitizeInput('ic_number')"
+                                />
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1" for="dob">Date of Birth</label>
-                                <input id="dob" v-model="form.dob" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200" placeholder="dd/mm/yyyy" type="text" @input="formatDate('dob')"/>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="dob"
+                                    >Date of Birth</label
+                                >
+                                <input
+                                    id="dob"
+                                    v-model="form.dob"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    type="date"
+                                    @input="formatDate('dob')"
+                                />
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1" for="gender">Gender</label>
-                                <select id="gender" v-model="form.gender" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200">
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="gender"
+                                    >Gender</label
+                                >
+                                <select
+                                    id="gender"
+                                    v-model="form.gender"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                >
                                     <option value="">Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1" for="religion">Religion</label>
-                                <input id="religion" v-model="form.religion" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200" placeholder="Enter religion" type="text" @input="sanitizeInput('religion')"/>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                    for="religion"
+                                    >Religion</label
+                                >
+                                <input
+                                    id="religion"
+                                    v-model="form.religion"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    placeholder="Enter religion"
+                                    type="text"
+                                    @input="sanitizeInput('religion')"
+                                />
                             </div>
                         </div>
                     </div>
@@ -140,7 +207,7 @@
                                     v-model="form.emergency_contact_name"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter emergency contact name"
-                                    type="tel"
+                                    type="text"
                                     @input="
                                         sanitizeInput('emergency_contact_name')
                                     "
@@ -177,7 +244,7 @@
                                     v-model="form.emergency_contact_two_name"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter emergency contact name"
-                                    type="tel"
+                                    type="text"
                                     @input="
                                         sanitizeInput(
                                             'emergency_contact_two_name'
@@ -195,7 +262,7 @@
                                 <input
                                     id="emergency_contact_two"
                                     v-model="form.emergency_contact_two"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 Lilliputian"
                                     pattern="[0-9]{10,11}"
                                     placeholder="Enter emergency contact"
                                     type="tel"
@@ -204,8 +271,6 @@
                                     "
                                 />
                             </div>
-
-
 
                             <div>
                                 <label
@@ -218,36 +283,10 @@
                                     v-model="form.state"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                                     placeholder="Enter State"
-                                    type="tel"
-                                    @input="
-                                        sanitizeInput(
-                                            'state'
-                                        )
-                                    "
+                                    type="text"
+                                    @input="sanitizeInput('state')"
                                 />
                             </div>
-
-                            <!-- <div>
-                                <label
-                                    class="block text-sm font-medium text-gray-700 mb-1"
-                                >
-                                    State
-                                </label>
-                                <select
-                                    id="state"
-                                    v-model="form.state"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                >
-                                    <option value="">Select State</option>
-                                    <option
-                                        v-for="state in stateList"
-                                        :key="state.id"
-                                        :value="state.name"
-                                    >
-                                        {{ state.name }}
-                                    </option>
-                                </select>
-                            </div> -->
 
                             <div class="md:col-span-2">
                                 <label
@@ -331,8 +370,7 @@
                                     id="interview_date"
                                     v-model="form.interview_date"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                    placeholder="dd/mm/yyyy"
-                                    type="text"
+                                    type="date"
                                     @input="formatDate('interview_date')"
                                 />
                             </div>
@@ -346,8 +384,7 @@
                                     id="join_company"
                                     v-model="form.join_company"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                    placeholder="dd/mm/yyyy"
-                                    type="text"
+                                    type="date"
                                     @input="formatDate('join_company')"
                                 />
                             </div>
@@ -360,8 +397,7 @@
                                     id="exit_company"
                                     v-model="form.exit_company"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                    placeholder="dd/mm/yyyy"
-                                    type="text"
+                                    type="date"
                                     @input="formatDate('exit_company')"
                                 />
                             </div>
@@ -456,8 +492,7 @@
                                     id="join_accommodation"
                                     v-model="form.join_accommodation"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                    placeholder="dd/mm/yyyy"
-                                    type="text"
+                                    type="date"
                                     @input="formatDate('join_accommodation')"
                                 />
                             </div>
@@ -471,8 +506,7 @@
                                     id="exit_accommodation"
                                     v-model="form.exit_accommodation"
                                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
-                                    placeholder="dd/mm/yyyy"
-                                    type="text"
+                                    type="date"
                                     @input="formatDate('exit_accommodation')"
                                 />
                             </div>
@@ -564,7 +598,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import {
@@ -595,10 +629,9 @@ const statusList = [
     { id: "active", name: "Active" },
     { id: "absconded", name: "Absconded" },
     { id: "resigned", name: "Resigned" },
-    { id: "rejected", name: "Rejected" }, 
+    { id: "rejected", name: "Rejected" },
     { id: "kiv ", name: "KIV " },
-     { id: "terminated ", name: "Terminated" },
-    
+    { id: "terminated ", name: "Terminated" },
 ];
 const residanceList = [
     { id: "hostel", name: "Hostel" },
@@ -629,11 +662,11 @@ const bankList = [
 ];
 
 const form = ref({
+    name: "",
     company: "",
     candidate_id: "",
     contact_name: "",
     contact_number: "",
-    name: "",
     ic_number: "",
     dob: "",
     gender: "",
@@ -665,42 +698,12 @@ const sanitizeInput = (field) => {
 };
 
 const formatDate = (field) => {
-    let value = form.value[field];
-    // Remove non-digit characters except slash
-    value = value.replace(/[^0-9/]/g, "");
-
-    // Auto-format to dd/mm/yyyy
-    if (value.length === 2 && !value.includes("/")) {
-        value += "/";
-    } else if (value.length === 5 && value.charAt(2) === "/") {
-        value += "/";
-    }
-
-    // Limit input length
-    if (value.length > 10) {
-        value = value.substring(0, 10);
-    }
-
-    form.value[field] = value;
-
-    // Validate date format
-    if (value.length === 10) {
-        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-        if (!regex.test(value)) {
-            formErrors.value.push(
-                `${field.replace("_", " ")} must be in dd/mm/yyyy format`
-            );
-        } else {
-            const [day, month, year] = value.split("/").map(Number);
-            const date = new Date(year, month - 1, day);
-            if (
-                isNaN(date.getTime()) ||
-                date.getFullYear() !== year ||
-                date.getMonth() !== month - 1 ||
-                date.getDate() !== day
-            ) {
-                formErrors.value.push(`Invalid ${field.replace("_", " ")}`);
-            }
+    const value = form.value[field];
+    // Convert date to yyyy-mm-dd format if necessary
+    if (value) {
+        const date = new Date(value);
+        if (!isNaN(date.getTime())) {
+            form.value[field] = date.toISOString().split("T")[0];
         }
     }
 };
@@ -711,49 +714,34 @@ const validateForm = () => {
     if (!form.value.name.trim()) {
         formErrors.value.push("Full Name is required");
     }
-    if (!form.value.candidate_id.trim()) {
-        formErrors.value.push("Candidate ID is required");
-    }
     if (
         form.value.contact_number &&
         !/^[0-9]{10,11}$/.test(form.value.contact_number)
     ) {
         formErrors.value.push("Contact number must be 10-11 digits");
     }
-    if (form.value.dob && !/^\d{2}\/\d{2}\/\d{4}$/.test(form.value.dob)) {
-        formErrors.value.push("Date of Birth must be in dd/mm/yyyy format");
-    } else if (form.value.dob) {
-        const [day, month, year] = form.value.dob.split("/").map(Number);
-        const date = new Date(year, month - 1, day);
-        if (date > new Date("2007-05-25")) {
-            formErrors.value.push("Employee must be at least 18 years old");
-        }
-    }
+
     if (form.value.join_accommodation && form.value.exit_accommodation) {
-        const joinDate = new Date(
-            form.value.join_accommodation.split("/").reverse().join("-")
-        );
-        const exitDate = new Date(
-            form.value.exit_accommodation.split("/").reverse().join("-")
-        );
+        const joinDate = new Date(form.value.join_accommodation);
+        const exitDate = new Date(form.value.exit_accommodation);
         if (joinDate > exitDate) {
             formErrors.value.push(
                 "Join accommodation date must be before exit date"
             );
         }
     }
-    if (form.value.residance === "Hostel") {
-        if (!form.value.room_number.trim()) {
-            formErrors.value.push(
-                "Room number is required for hostel accommodation"
-            );
-        }
-        if (!form.value.bed_number.trim()) {
-            formErrors.value.push(
-                "Bed number is required for hostel accommodation"
-            );
-        }
-    }
+    // if (form.value.residance === "Hostel") {
+    //     if (!form.value.room_number.trim()) {
+    //         formErrors.value.push(
+    //             "Room number is required for hostel accommodation"
+    //         );
+    //     }
+    //     if (!form.value.bed_number.trim()) {
+    //         formErrors.value.push(
+    //             "Bed number is required for hostel accommodation"
+    //         );
+    //     }
+    // }
 
     return formErrors.value.length === 0;
 };
@@ -849,6 +837,13 @@ const resetForm = () => {
     formErrors.value = [];
     error.value = null;
 };
+
+watch(
+  () => form.value.name,
+  (newName) => {
+    form.value.contact_name = newName;
+  }
+);
 
 onMounted(() => {
     loadCompanies();

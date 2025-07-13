@@ -1,59 +1,47 @@
 <template>
-    <!-- <pre>{{ form }}</pre> -->
     <div class="min-h-screen bg-gray-50 py-8">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
-            <div
-                class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8"
-            >
-                <div
-                    class="bg-gradient-to-r from-teal-600 to-cyan-600 px-8 py-6 rounded-t-xl"
-                >
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
+                <div class="bg-gradient-to-r from-teal-600 to-cyan-600 px-8 py-6 rounded-t-xl">
                     <div class="flex items-center">
-                        <div
-                            class="h-12 w-12 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center mr-4"
-                        >
+                        <div class="h-12 w-12 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center mr-4">
                             <Edit class="h-6 w-6 text-white" />
                         </div>
                         <div>
-                            <h1 class="text-2xl font-bold text-white">
-                                Edit ToDo
-                            </h1>
-                            <p class="text-teal-100 mt-1">
-                                Update your task information
-                            </p>
+                            <h1 class="text-2xl font-bold text-white">Edit ToDo</h1>
+                            <p class="text-teal-100 mt-1">Update your task information</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Loading State -->
-            <div
-                v-if="isLoading"
-                class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center"
-            >
+            <div v-if="isLoading" class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
                 <div class="inline-flex items-center">
-                    <div
-                        class="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600 mr-4"
-                    ></div>
-                    <span class="text-gray-600 text-lg font-medium"
-                        >Loading todo...</span
-                    >
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600 mr-4"></div>
+                    <span class="text-gray-600 text-lg font-medium">Loading todo...</span>
                 </div>
             </div>
 
             <!-- Form -->
-            <div
-                v-else="todoDetails"
-                class="bg-white rounded-xl shadow-sm border border-gray-200"
-            >
+            <div v-else="todoDetails" class="bg-white rounded-xl shadow-sm border border-gray-200">
                 <form @submit.prevent="updateTodo" class="p-8 space-y-6">
+                    <!-- Error Display -->
+                    <div v-if="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+                        {{ error }}
+                    </div>
+                    <div v-if="formErrors.length" class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg mb-6">
+                        <ul class="list-disc pl-5">
+                            <li v-for="error in formErrors" :key="error">
+                                {{ error }}
+                            </li>
+                        </ul>
+                    </div>
+
                     <!-- ToDo Heading -->
                     <div>
-                        <label
-                            for="heading"
-                            class="block text-sm font-semibold text-gray-700 mb-2"
-                        >
+                        <label for="heading" class="block text-sm font-semibold text-gray-700 mb-2">
                             ToDo Heading <span class="text-red-500">*</span>
                         </label>
                         <input
@@ -63,15 +51,13 @@
                             required
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
                             placeholder="Enter todo heading..."
+                            @input="sanitizeInput('heading')"
                         />
                     </div>
 
                     <!-- Description -->
                     <div>
-                        <label
-                            for="description"
-                            class="block text-sm font-semibold text-gray-700 mb-2"
-                        >
+                        <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">
                             Description
                         </label>
                         <textarea
@@ -80,6 +66,7 @@
                             rows="4"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 resize-none"
                             placeholder="Enter detailed description..."
+                            @input="sanitizeInput('description')"
                         ></textarea>
                     </div>
 
@@ -87,10 +74,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Status -->
                         <div>
-                            <label
-                                for="status"
-                                class="block text-sm font-semibold text-gray-700 mb-2"
-                            >
+                            <label for="status" class="block text-sm font-semibold text-gray-700 mb-2">
                                 Status <span class="text-red-500">*</span>
                             </label>
                             <select
@@ -109,10 +93,7 @@
 
                         <!-- Priority -->
                         <div>
-                            <label
-                                for="priority"
-                                class="block text-sm font-semibold text-gray-700 mb-2"
-                            >
+                            <label for="priority" class="block text-sm font-semibold text-gray-700 mb-2">
                                 Priority <span class="text-red-500">*</span>
                             </label>
                             <select
@@ -132,10 +113,7 @@
 
                     <!-- Due Date -->
                     <div>
-                        <label
-                            for="due_date"
-                            class="block text-sm font-semibold text-gray-700 mb-2"
-                        >
+                        <label for="due_date" class="block text-sm font-semibold text-gray-700 mb-2">
                             Due Date <span class="text-red-500">*</span>
                         </label>
                         <input
@@ -144,13 +122,12 @@
                             type="date"
                             required
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                            @input="formatDate('due_date')"
                         />
                     </div>
 
                     <!-- Form Actions -->
-                    <div
-                        class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200"
-                    >
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
                         <button
                             type="submit"
                             :disabled="isSubmitting"
@@ -180,36 +157,8 @@
                 </form>
             </div>
 
-            <!-- Error State -->
-            <!-- <div
-                v-else
-                class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center"
-            >
-                <div
-                    class="h-20 w-20 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-6"
-                >
-                    <AlertCircle class="h-10 w-10 text-red-500" />
-                </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                    ToDo Not Found
-                </h3>
-                <p class="text-gray-500 mb-6">
-                    The requested todo item could not be found.
-                </p>
-                <router-link
-                    :to="{ name: 'ListTodos' }"
-                    class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-lg shadow-sm hover:from-teal-700 hover:to-cyan-700 transition-all duration-200"
-                >
-                    <ArrowLeft class="h-5 w-5 mr-2" />
-                    Back to List
-                </router-link>
-            </div> -->
-
             <!-- Success Message -->
-            <div
-                v-if="showSuccess"
-                class="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-lg z-50 transition-all duration-300"
-            >
+            <div v-if="showSuccess" class="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-lg z-50 transition-all duration-300">
                 <div class="flex items-center">
                     <CheckCircle class="h-5 w-5 mr-2" />
                     <span class="font-medium">ToDo updated successfully!</span>
@@ -223,16 +172,14 @@
 import { ref, onMounted, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-
+import { toast } from 'vue3-toastify';
 import {
-    AlertCircle,
     ArrowLeft,
     CheckCircle,
     Edit,
     RotateCcw,
     Save,
 } from "lucide-vue-next";
-
 import { FETCH_TODO_DETAILS, UPDATE_TODO } from "@/services/store/actions.type";
 
 // Core setup
@@ -246,6 +193,7 @@ const isLoading = ref(true);
 const isSubmitting = ref(false);
 const showSuccess = ref(false);
 const error = ref(null);
+const formErrors = ref([]);
 const todoDetails = computed(() => store.getters["todo/todoDetails"]);
 
 // Form data
@@ -256,6 +204,45 @@ const form = ref({
     priority: "",
     due_date: "",
 });
+
+// Sanitize input
+const sanitizeInput = (field) => {
+    const value = form.value[field];
+    if (typeof value === "string") {
+        form.value[field] = value.replace(/[<>]/g, "");
+    }
+};
+
+// Format date
+const formatDate = (field) => {
+    const value = form.value[field];
+    if (value) {
+        const date = new Date(value);
+        if (!isNaN(date.getTime())) {
+            form.value[field] = date.toISOString().split("T")[0];
+        }
+    }
+};
+
+// Validate form
+const validateForm = () => {
+    formErrors.value = [];
+
+    if (!form.value.heading.trim()) {
+        formErrors.value.push("Heading is required.");
+    }
+    if (!form.value.status) {
+        formErrors.value.push("Status is required.");
+    }
+    if (!form.value.priority) {
+        formErrors.value.push("Priority is required.");
+    }
+    if (!form.value.due_date) {
+        formErrors.value.push("Due date is required.");
+    }
+
+    return formErrors.value.length === 0;
+};
 
 // Fetch ToDo details from store
 const getTodoDetails = async () => {
@@ -274,7 +261,7 @@ const getTodoDetails = async () => {
             };
         }
     } catch (err) {
-        console.error("Error fetching todo details:", err?.response?.data?.message || err.message);
+        error.value = err?.response?.data?.message || "Error fetching todo details.";
     } finally {
         isLoading.value = false;
     }
@@ -284,14 +271,9 @@ const getTodoDetails = async () => {
 const updateTodo = async () => {
     isSubmitting.value = true;
     error.value = null;
+    formErrors.value = [];
 
-    if (
-        !form.value.heading ||
-        !form.value.status ||
-        !form.value.priority ||
-        !form.value.due_date
-    ) {
-        error.value = "Please fill all required fields.";
+    if (!validateForm()) {
         isSubmitting.value = false;
         return;
     }
@@ -310,12 +292,12 @@ const updateTodo = async () => {
 
         // Show success and navigate
         showSuccess.value = true;
+        toast.success('ToDo updated successfully!');
         setTimeout(() => {
             showSuccess.value = false;
             router.push({ name: "ListTodos" });
         }, 1500);
     } catch (err) {
-        console.error("Error updating todo:", err);
         error.value = err?.response?.data?.message || "Error updating ToDo. Please try again.";
     } finally {
         isSubmitting.value = false;
@@ -334,6 +316,8 @@ const resetForm = () => {
             due_date: data.due_date || "",
         };
     }
+    error.value = null;
+    formErrors.value = [];
 };
 
 // Lifecycle

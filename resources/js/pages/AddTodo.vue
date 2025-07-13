@@ -31,6 +31,7 @@
               required
               class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
               placeholder="Enter todo heading..."
+              @input="sanitizeInput('heading')"
             />
           </div>
 
@@ -45,6 +46,7 @@
               rows="4"
               class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 resize-none"
               placeholder="Enter detailed description..."
+              @input="sanitizeInput('description')"
             ></textarea>
           </div>
 
@@ -100,6 +102,7 @@
               type="date"
               required
               class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+              @input="formatDate('due_date')"
             />
           </div>
 
@@ -174,6 +177,25 @@ const form = reactive({
   priority: '',
   due_date: ''
 });
+
+// Sanitize input
+const sanitizeInput = (field) => {
+  const value = form[field];
+  if (typeof value === 'string') {
+    form[field] = value.replace(/[<>]/g, '');
+  }
+};
+
+// Format date
+const formatDate = (field) => {
+  const value = form[field];
+  if (value) {
+    const date = new Date(value);
+    if (!isNaN(date.getTime())) {
+      form[field] = date.toISOString().split('T')[0];
+    }
+  }
+};
 
 // Validation
 const validateForm = () => {
