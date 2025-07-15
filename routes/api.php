@@ -34,6 +34,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
     Route::post('save-weekly-info', [WeeklyInfoController::class, 'store']);
     Route::get('weekly-reports', [WeeklyInfoController::class, 'index']);
 
+    Route::get('get-all-employees', [DashboardAnalyticsController::class, 'getAllEmployees']);
+
 
 
 
